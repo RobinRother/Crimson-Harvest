@@ -1,0 +1,45 @@
+Calendar
+
+- Calendar view
+    - view of month (scrollable under each other)
+    - view of day details
+- select day as start date (button/ double click)
+- select day as end date
+- when no end day is selected, days will be marked to the current day until ended
+- only one of these is available -|
+- add notes to day
+- add strength to day (scale?)
+- highly customizable (themes, font, colours, navigation, ...)
+- sync to cloud
+- cross platform (android, ios)
+- customizable entries (bullet points/ tags)
+    - text fields
+    - checkboxes/ radio buttons
+    - scales
+- reset button (with and without personal data)
+- marked days have a visualized difference to non marked days
+- possibility of different tracking profiles? (track different things)
+    - cool view from robin?
+- When a start day is inserted before another timespan, it automatically ends at the start of the next timespan
+
+
+- Calendar view
+    - clicking on day
+        -> show preview of details
+        -> (show toggle button for start/ end)?
+
+
+
+As a user I want to select days as a start and endpoint, so that I can mark a timespan
+
+In order to mark a timespan, as a user I want to select days as start and endpoint.
+In order to mark a timespan, I want to select days as start and endpoint.
+
+In order to reduce unecessary actions for the customer, the app will mark days up to the current day until an end is selected.
+
+When no end day to a start day is marked, the app **will** mark days up to the current day until an end day is selected
+
+https://blog.crisp.se/2014/09/25/david-evans/as-a-i-want-so-that-considered-harmful
+
+
+When a start day is inserted before another timespan, it automatically ends at the start of the next timespan
