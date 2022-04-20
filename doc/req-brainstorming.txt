@@ -1,34 +1,25 @@
 Calendar
 
-- Calendar view
-    - view of month (scrollable under each other)
-    - view of day details
-- select day as start date (button/ double click)
-- select day as end date
-- when no end day is selected, days will be marked to the current day until ended
-- only one of these is available -|
 - add notes to day
-- add strength to day (scale?)
 - highly customizable (themes, font, colours, navigation, ...)
 - sync to cloud
-- cross platform (android, ios)
 - customizable entries (bullet points/ tags)
     - text fields
     - checkboxes/ radio buttons
     - scales
-- reset button (with and without personal data)
-- marked days have a visualized difference to non marked days
-- possibility of different tracking profiles? (track different things)
-    - cool view from robin?
-- When a start day is inserted before another timespan, it automatically ends at the start of the next timespan
 
 
-- Calendar view
-    - clicking on day
-        -> show preview of details
-        -> (show toggle button for start/ end)?
-
-
+- In order to see and mark a timespan, I want a monthly calendar view.
+- In order to view and add details to a day, I want a detail calendar view.
+- In order to analyze the tracked events, I want a diagram view.
+- In order to mark a timespan, I want to mark a day as start/ end.
+- In order to avoid confusion, the app allows only start or end.
+- Because it is convenient, the app will continue marking days from the start mark till present day if no end mark is set.
+- Because overlapping Entities are **EEEEVIIIIL**, a started entity automatically stops before the start of another similar entity.  
+- In order to track different events, I can create different tracking entities.
+- Because I REALLY like resets, I want a reset button (soft, hard).
+- In order to reach a broader market, I need a cross platform app.
+- In  
 
 As a user I want to select days as a start and endpoint, so that I can mark a timespan
 
