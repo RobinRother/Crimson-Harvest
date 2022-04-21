@@ -41,9 +41,11 @@
 > alex
 
 > initial project/ github setup/ orga<br>
-> <br>
+> 4h?<br>
 > alex, robin
 
+> lecture<br>
+>
 <br>
 
 ## week 06 (25.04.2022 - 01.05.2022)
