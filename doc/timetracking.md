@@ -45,7 +45,11 @@
 > alex, robin
 
 > lecture<br>
->
+> 1.5h
+
+> wireframes<br>
+> 4h
+> alex
 <br>
 
 ## week 06 (25.04.2022 - 01.05.2022)
