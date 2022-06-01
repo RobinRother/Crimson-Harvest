@@ -1,90 +1,102 @@
 import 'package:flutter/material.dart';
 
-void main(){
+void main() {
   runApp(MyApp());
 }
 
-class MyApp extends StatelessWidget{
+class MyApp extends StatelessWidget {
+  const MyApp({Key? key}) : super(key: key);
+
   @override
-  build(BuildContext context){
+  build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(),
-        body: MonthGrid(),
+        body: MonthList(),
       ),
     );
   }
 }
 
+class MonthList extends StatelessWidget {
+  const MonthList({Key? key}) : super(key: key);
 
-class MonthGrid extends StatelessWidget{    // really monthWidget?
-  final monthlen = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31, 30, 31];
+  @override
+  build(BuildContext context) {
+    List dateList =
+        calcDates(DateTime.utc(2018, 1, 1), DateTime.utc(2018, 6, 1));
 
-  calcDates(DateTime calendarStart, DateTime calendarEnd){
-    List<String> weekdays = ['Mo', 'Di', 'Mi', 'Do', 'Fr', 'Sa', 'So'];
+    return Column(
+      children: [
+        Expanded(
+          child: ListView.builder(
+            //shrinkWrap: true,
+            scrollDirection: Axis.vertical,
+            itemBuilder: (BuildContext context, int index) {
+              return MonthGrid(
+                  dates: dateList[index]); // needs only one month!!
+            },
+            //separatorBuilder: (BuildContext context, int index) => const Divider(),
+            itemCount: dateList.length,
+          ),
+        ),
+      ],
+    );
+  }
+
+  calcDates(DateTime calendarStart, DateTime calendarEnd) {
     List<List> calculatedDateList = [];
     DateTime dayIterator = calendarStart;
     int monthIndex = 0;
     int comparisonMonth = calendarStart.month;
 
-    while(calendarEnd.isAfter(dayIterator)){
-
-      // hopefully month is increased by day+1
+    while (calendarEnd.isAfter(dayIterator)) {
       // if it is the next month, then iterate to next month in list
-      if(comparisonMonth != dayIterator.month){
-        int comparisonMonth = dayIterator.month;
-        monthIndex++;
+      if (comparisonMonth != dayIterator.month) {
+        monthIndex = monthIndex + 1;
+        comparisonMonth = dayIterator.month;
       }
 
       // prepare content for new month widget: weekdays and placeholder content (weekdays before the first month day)
-      if(dayIterator.day == 1){
+      if (dayIterator.day == 1) {
         // should place weekdays in one index field
+        List<String> weekdays = ['Mo', 'Di', 'Mi', 'Do', 'Fr', 'Sa', 'So'];
         calculatedDateList.add(weekdays);
 
         // add buffer according to weekday
-
       }
 
-      // adding week row to index - buffer to be added!!!
       calculatedDateList[monthIndex].add(dayIterator.day.toString());
-
-      dayIterator.add(const Duration(days: 1));
+      dayIterator = dayIterator.add(const Duration(days: 1));
     }
-
-  return calculatedDateList;
-
-
-    // // add buffer!!!
-    // var allDates = [];
-    // var monthGridContent = ['Mo', 'Di', 'Mi', 'Do', 'Fr', 'Sa', 'So'];
-
-    // DateTime nextDay = calendarStart;
-
-    // while(calendarEnd.isAfter(nextDay)){
-      
-
-    //   DateTime nextDay = calendarStart.add(const Duration(days: 1));
-    // }
-
-    // for (int date = 1; date<32; date++){
-    //   monthGridContent.add(date.toString());
-    // }
-    // allDates.add(monthGridContent);
-
-    // return allDates;
+    return calculatedDateList;
   }
-  
+}
+
+class MonthGrid extends StatelessWidget {
+  MonthGrid({required this.dates});
+  final List dates;
+
   @override
-  build(BuildContext context){
-    return GridView.builder(
-      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-        crossAxisCount: 7,
-      ),
-      itemCount: 38,
-      itemBuilder: (context, index){
-        var dates = calcDates(DateTime.utc(2018, 1, 1), DateTime.utc(2018, 2, 1));
-        return Text('${dates[0][index]}');
-      }
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        Text('Monatsname'), //ersetzen mit Variablen Monat und Jahr
+        GridView.builder(
+            physics: NeverScrollableScrollPhysics(),
+            shrinkWrap: true,
+            scrollDirection: Axis.vertical,
+            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: 7,
+            ),
+            itemCount: dates.length,
+            itemBuilder: (context, index) {
+              return Container(
+                color: Colors.amber,
+                child: Text('${dates[index]}'),
+              );
+            }),
+      ],
     );
   }
 }
