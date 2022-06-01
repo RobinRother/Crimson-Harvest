@@ -30,6 +30,7 @@ class MonthGrid extends StatelessWidget{    // really monthWidget?
     while(calendarEnd.isAfter(dayIterator)){
 
       // hopefully month is increased by day+1
+      // if it is the next month, then iterate to next month in list
       if(comparisonMonth != dayIterator.month){
         int comparisonMonth = dayIterator.month;
         monthIndex++;
@@ -81,7 +82,7 @@ class MonthGrid extends StatelessWidget{    // really monthWidget?
       ),
       itemCount: 38,
       itemBuilder: (context, index){
-        var dates = calcDates(DateTime.utc(2018, 1, 1), DateTime.utc(2023, 12, 31));
+        var dates = calcDates(DateTime.utc(2018, 1, 1), DateTime.utc(2018, 2, 1));
         return Text('${dates[0][index]}');
       }
     );
