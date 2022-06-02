@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'day.dart';
 
 void main() {
   runApp(MyApp());
@@ -23,8 +24,9 @@ class MyApp extends StatelessWidget {
 class MonthList extends StatelessWidget {
   MonthList({Key? key}) : super(key: key);
 
-  final DateTime calendarStart = DateTime.utc(2018, 1, 1);
-  final DateTime calendarEnd = DateTime.utc(2020, 1, 1);
+  // make it late dyncamic to current day
+  final DateTime calendarStart = DateTime.utc(2022, 1, 1);
+  final DateTime calendarEnd = DateTime.utc(2028, 1, 1);
 
   @override
   build(BuildContext context) {
@@ -38,11 +40,12 @@ class MonthList extends StatelessWidget {
             scrollDirection: Axis.vertical,
             itemBuilder: (BuildContext context, int index) {
               return MonthGrid(
+                // passing months individually
                 dates: dateList[index],
-                //passing attributes of first day each
-                month: dateList[index][0].month,     // wird als zahl ausgegeben -> wie als string?
+                //passing attributes of first day each to create header -- gap day have correct month/ year
+                month: dateList[index][0].monthName,
                 year: dateList[index][0].year.toString(),
-              ); // needs only one month!!
+              );
             },
             //separatorBuilder: (BuildContext context, int index) => const Divider(),
             itemCount: dateList.length,
@@ -52,32 +55,36 @@ class MonthList extends StatelessWidget {
     );
   }
 
-
-  List calcDates(DateTime calendarStart, DateTime calendarEnd) {
+  List calcDates(DateTime calendarStart, DateTime calendarEnd){
     List<List> calculatedDateList = [];
     DateTime dayIterator = calendarStart;
     int monthIndex = 0;
     int comparisonMonth = calendarStart.month;
 
-    while (calendarEnd.isAfter(dayIterator)) {
-      // if it is the next month, then iterate to next month in list
+    while (calendarEnd.isAfter(dayIterator)){
       if (comparisonMonth != dayIterator.month) {
         monthIndex = monthIndex + 1;
         comparisonMonth = dayIterator.month;
       }
 
-      // prepare content for new month widget: weekdays and placeholder content (weekdays before the first month day)
-      if (dayIterator.day == 1) {
-        // should place weekdays in one index field
+      if (dayIterator.day == 1){
+        int gap = dayIterator.weekday - 1;
+        //to make month index accessible need to create this
+        List<Day> firstElement = [];
 
-        List<Day> firstDay = [Day(date: dayIterator)];
-        calculatedDateList.add(firstDay);
+        while(gap > 0){
+          firstElement.add(Day.placeholder(date: dayIterator));
+          gap = gap - 1;
+        }
 
-        // add buffer according to weekday
+        firstElement.add(Day(date: dayIterator));
+        calculatedDateList.add(firstElement);
+        dayIterator = dayIterator.add(const Duration(days: 1));
+        //avoid adding day 1 two times
+        continue;
       }
-      else {
-        calculatedDateList[monthIndex].add(Day(date: dayIterator));
-      }
+
+      calculatedDateList[monthIndex].add(Day(date: dayIterator));
       dayIterator = dayIterator.add(const Duration(days: 1));
     }
     return calculatedDateList;
@@ -95,9 +102,9 @@ class MonthGrid extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Text('${month}  -  ${year}'), //ersetzen mit Variablen Monat und Jahr
+        Text('$month  -  $year'), //ersetzen mit Variablen Monat und Jahr
         GridView.builder(
-          physics: NeverScrollableScrollPhysics(),
+          physics: const NeverScrollableScrollPhysics(),
           shrinkWrap: true,
           scrollDirection: Axis.vertical,
           gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
@@ -128,32 +135,5 @@ class MonthGrid extends StatelessWidget {
           }),
       ],
     );
-  }
-}
-
-
-class Day {
-  int fDay = 0;
-  int monthNum = 0;
-  String monthString = '';
-  int year = 0;
-  String notes = '';
-  //timerange stuff
-
-  Day({required date}){
-    day = date.day;
-    monthNum = date.month;
-    monthString = mapMonthName();
-    year = date.year;
-  }
-
-  // map numeric month value to named month
-  String mapMonthName(){
-    List<String> monthNames = ['Januar', 'Februar', 'März', 'April', 'Mai', 'Juni', 'Juli', 'August', 'September', 'Oktober', 'November', 'Dezember'];
-    return monthNames[monthNum - 1];
-  }
-
-  int get day{
-    return day;
   }
 }
