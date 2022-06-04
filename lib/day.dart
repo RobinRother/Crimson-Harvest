@@ -1,5 +1,5 @@
 class Day {
-  int _day = -1;
+  int _day = 0;
   int _monthNum = 0;
   String _monthName = '';
   int _year = 0;

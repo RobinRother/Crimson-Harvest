@@ -15,22 +15,6 @@ class MonthGrid extends StatelessWidget {
       children: [
         Text('${month}  -  ${year}'), //ersetzen mit Variablen Monat und Jahr
         GridView.builder(
-          physics: const NeverScrollableScrollPhysics(),
-          shrinkWrap: true,
-          scrollDirection: Axis.vertical,
-          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 7,
-            childAspectRatio: 0.8,
-          ),
-          itemCount: 7,
-          itemBuilder: (context, indexWeek) {
-            return Container(
-              color: Colors.amber,
-              child: Text(weekdays[indexWeek]),
-            );
-          },
-        ),
-        GridView.builder(
           physics: NeverScrollableScrollPhysics(),
           shrinkWrap: true,
           scrollDirection: Axis.vertical,
@@ -38,14 +22,30 @@ class MonthGrid extends StatelessWidget {
             crossAxisCount: 7,
             childAspectRatio: 0.8,
           ),
-          itemCount: dates.length,
+          itemCount: dates.length + 7,
           itemBuilder: (context, index) {
-            return DayGrid(
-                dayString: dates[index].day.toString(),
-            );
+            if(index < 7){
+              return Container(
+                color: Colors.amber,
+                child: Text(weekdays[index]),
+              );
+            }
+            else{
+              return DayGrid(
+                dayString: dates[index - 7].day.toString(),
+                isGapDay: _isGapDay(dates[index - 7].day),
+              );
+            };
           },
         ),
       ],
     );
+  }
+
+  bool _isGapDay(int dayValue){
+    if(dayValue > 0){
+      return false;
+    }
+    return true;
   }
 }
