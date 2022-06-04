@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'day_grid.dart';
 
 class MonthGrid extends StatelessWidget {
   MonthGrid({required this.dates, required this.month, required this.year});
@@ -6,12 +7,13 @@ class MonthGrid extends StatelessWidget {
   final String month;
   final String year;
   List<String> weekdays = ['Mo', 'Di', 'Mi', 'Do', 'Fr', 'Sa', 'So'];
+  bool focused = false;
 
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Text('$month  -  $year'), //ersetzen mit Variablen Monat und Jahr
+        Text('${month}  -  ${year}'), //ersetzen mit Variablen Monat und Jahr
         GridView.builder(
           physics: const NeverScrollableScrollPhysics(),
           shrinkWrap: true,
@@ -38,9 +40,8 @@ class MonthGrid extends StatelessWidget {
           ),
           itemCount: dates.length,
           itemBuilder: (context, index) {
-            return Container(
-              color: Colors.amber,
-              child: Text(dates[index].day.toString()),
+            return DayGrid(
+                dayString: dates[index].day.toString(),
             );
           },
         ),

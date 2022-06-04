@@ -4,6 +4,7 @@ class Day {
   String _monthName = '';
   int _year = 0;
   String _notes = '';
+  bool isSelected = false;
   //timerange stuff
 
   Day({required date}){
