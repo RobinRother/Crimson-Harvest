@@ -2,11 +2,11 @@
 import 'package:flutter/material.dart';
 import 'day.dart';
 import 'month_grid.dart';
+import 'weekday_row.dart';
 
 class MonthList extends StatelessWidget {
-  MonthList({Key? key}) : super(key: key);
 
-  // make it late dyncamic to current day
+  // make it later dyncamic to current day
   final DateTime calendarStart = DateTime.utc(2020, 1, 1);
   final DateTime calendarEnd = DateTime.utc(2028, 1, 1);
 
@@ -16,6 +16,7 @@ class MonthList extends StatelessWidget {
 
     return Column(
       children: [
+        WeekdayRow(),
         Expanded(
           child: ListView.builder(
             //shrinkWrap: true,
@@ -24,12 +25,11 @@ class MonthList extends StatelessWidget {
               return MonthGrid(
                 // passing months individually
                 dates: dateList[index],
-                //passing attributes of first day each to create header -- gap day have correct month/ year
+                //passing attributes of first day each to create header -- gap day already have correct month/ year
                 month: dateList[index][0].monthName,
                 year: dateList[index][0].year.toString(),
               );
             },
-            //separatorBuilder: (BuildContext context, int index) => const Divider(),
             itemCount: dateList.length,
           ),
         ),
@@ -54,6 +54,7 @@ class MonthList extends StatelessWidget {
         //to make month index accessible need to create this
         List<Day> firstElement = [];
 
+        // create list with gap days
         while(gap > 0){
           firstElement.add(Day.placeholder(date: dayIterator));
           gap = gap - 1;

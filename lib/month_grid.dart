@@ -6,14 +6,13 @@ class MonthGrid extends StatelessWidget {
   final List dates;
   final String month;
   final String year;
-  List<String> weekdays = ['Mo', 'Di', 'Mi', 'Do', 'Fr', 'Sa', 'So'];
   bool focused = false;
 
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Text('${month}  -  ${year}'), //ersetzen mit Variablen Monat und Jahr
+        Text('$month  -  $year'),
         GridView.builder(
           physics: NeverScrollableScrollPhysics(),
           shrinkWrap: true,
@@ -22,20 +21,12 @@ class MonthGrid extends StatelessWidget {
             crossAxisCount: 7,
             childAspectRatio: 0.8,
           ),
-          itemCount: dates.length + 7,
+          itemCount: dates.length,
           itemBuilder: (context, index) {
-            if(index < 7){
-              return Container(
-                color: Colors.amber,
-                child: Text(weekdays[index]),
-              );
-            }
-            else{
-              return DayGrid(
-                dayString: dates[index - 7].day.toString(),
-                isGapDay: _isGapDay(dates[index - 7].day),
-              );
-            };
+            return DayGrid(
+              dayString: dates[index].day.toString(),
+              isGapDay: _isGapDay(dates[index].day),
+            );
           },
         ),
       ],
