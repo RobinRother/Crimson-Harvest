@@ -53,6 +53,13 @@
 <br>
 
 ## week 06 (25.04.2022 - 01.05.2022)
+> lecture<br>
+> 1.5h
+
+> working on calendar basics<br>
+> 5h<br>
+> alex
+
 
 <br>
 
@@ -61,7 +68,8 @@
 <br>
 
 ## week 08 (09.05.2022 - 15.05.2022)
-
+> fitting found calendar
+> 09:30 - 
 <br>
 
 ## week 09 (16.05.2022 - 22.05.2022)
@@ -77,7 +85,7 @@
 <br>
 
 ## week 12 (06.06.2022 - 12.06.2022)
-
+add around 7 days?
 <br>
 
 ## week 13 (13.06.2022 - 19.06.2022)
