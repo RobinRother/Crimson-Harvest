@@ -24,7 +24,7 @@ class MonthGrid extends StatelessWidget {
           itemCount: dates.length,
           itemBuilder: (context, index) {
             return DayGrid(
-              dayString: dates[index].day.toString(),
+              activeDayObject: dates[index],
               isGapDay: _isGapDay(dates[index].day),
             );
           },

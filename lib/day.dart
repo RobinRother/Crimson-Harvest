@@ -28,19 +28,11 @@ class Day {
     return months[_monthNum - 1];
   }
 
-  int get day{
-    return _day;
-  }
+  int get day => _day;
 
-  int get monthNum{
-    return _monthNum;
-  }
+  int get monthNum => _monthNum;
 
-  String get monthName{
-    return _monthName;
-  }
+  String get monthName =>_monthName;
 
-  int get year{
-    return _year;
-  }
+  int get year => _year;
 }
