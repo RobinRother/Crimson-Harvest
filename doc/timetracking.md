@@ -86,6 +86,8 @@
 
 ## week 12 (06.06.2022 - 12.06.2022)
 add around 7 days?
+1 day state stuff
+1.5h lecture
 <br>
 
 ## week 13 (13.06.2022 - 19.06.2022)
