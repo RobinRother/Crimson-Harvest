@@ -1,4 +1,3 @@
-// exchange list with multi type data format
 import 'package:flutter/material.dart';
 import 'day.dart';
 import 'month_grid.dart';
@@ -6,7 +5,7 @@ import 'weekday_row.dart';
 
 class MonthList extends StatelessWidget {
 
-  // make it later dyncamic to current day
+  // @TODO make it later dyncamic to current day OR even in settings
   final DateTime calendarStart = DateTime.utc(2020, 1, 1);
   final DateTime calendarEnd = DateTime.utc(2028, 1, 1);
 
@@ -25,7 +24,7 @@ class MonthList extends StatelessWidget {
               return MonthGrid(
                 // passing months individually
                 dates: dateList[index],
-                //passing attributes of first day each to create header -- gap day already have correct month/ year
+                //passing attributes of first day each to create header -- gap day already has correct month/ year
                 month: dateList[index][0].monthName,
                 year: dateList[index][0].year.toString(),
               );

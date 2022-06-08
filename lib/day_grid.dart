@@ -10,10 +10,8 @@ class DayGrid extends StatelessWidget{
 
   Color chooseColor(BuildContext context){
     bool activeDayObjectIsSelected = context.watch<SelectedDay>().isSelected && context.watch<SelectedDay>().selectedDay == activeDayObject;
-
-    // ignore gap day selection here?
-
-    // later add current day selection
+    // @TODO later add current day selection
+    // @TODO code colours in settings
     if(isGapDay){
       return Colors.white;
     }
@@ -32,6 +30,7 @@ class DayGrid extends StatelessWidget{
       child: Container(
         color: chooseColor(context),
         child: isGapDay ? const Text('') : Text(activeDayObject.day.toString()),
+        // @TODO later add borders, etc StyleStuff
       ),
     );
   }

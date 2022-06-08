@@ -1,6 +1,6 @@
+import 'package:crimson_harvest/month_list.dart';
 import 'package:crimson_harvest/providers/selected_day_provider.dart';
 import 'package:flutter/material.dart';
-import 'calendar_view.dart';
 import 'package:provider/provider.dart';
 
 void main() {
@@ -22,7 +22,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(      
       home: Scaffold(
         appBar: AppBar(),
-        body: CalendarView(),
+        body: MonthList(),
       ),
     );
   }

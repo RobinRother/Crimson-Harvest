@@ -14,7 +14,7 @@ class MonthGrid extends StatelessWidget {
       children: [
         Text('$month  -  $year'),
         GridView.builder(
-          physics: NeverScrollableScrollPhysics(),
+          physics: const NeverScrollableScrollPhysics(),
           shrinkWrap: true,
           scrollDirection: Axis.vertical,
           gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
