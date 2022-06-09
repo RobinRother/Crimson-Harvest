@@ -19,7 +19,7 @@ class WeekdayRow extends StatelessWidget{
       shrinkWrap: true,
       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisCount: 7,
-        childAspectRatio: 0.8,
+        childAspectRatio: 1,
       ),
       itemCount: 7,
       itemBuilder: (context, index){

@@ -8,7 +8,7 @@ class DayGrid extends StatelessWidget{
   final Day activeDayObject;
   final bool isGapDay;
 
-  bool isCurrentDay(){
+  bool isCurrentDay(){    // function or variable
     DateTime currentDay = DateTime.now();
     if(currentDay.year == activeDayObject.year && currentDay.month == activeDayObject.monthNum && currentDay.day == activeDayObject.day){
       return true;
@@ -28,7 +28,7 @@ class DayGrid extends StatelessWidget{
       return Colors.deepOrange;
     }
     else if(isCurrentDay()){
-      return Colors.lightGreen;
+      return Colors.pink;
     }
     else{
       return Colors.amber;
