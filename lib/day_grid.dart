@@ -8,8 +8,17 @@ class DayGrid extends StatelessWidget{
   final Day activeDayObject;
   final bool isGapDay;
 
+  bool isCurrentDay(){
+    DateTime currentDay = DateTime.now();
+    if(currentDay.year == activeDayObject.year && currentDay.month == activeDayObject.monthNum && currentDay.day == activeDayObject.day){
+      return true;
+    }
+    return false;
+  }
+
   Color chooseColor(BuildContext context){
     bool activeDayObjectIsSelected = context.watch<SelectedDay>().isSelected && context.watch<SelectedDay>().selectedDay == activeDayObject;
+
     // @TODO later add current day selection
     // @TODO code colours in settings
     if(isGapDay){
@@ -17,6 +26,9 @@ class DayGrid extends StatelessWidget{
     }
     else if(activeDayObjectIsSelected){
       return Colors.deepOrange;
+    }
+    else if(isCurrentDay()){
+      return Colors.lightGreen;
     }
     else{
       return Colors.amber;

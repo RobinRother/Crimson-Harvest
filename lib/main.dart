@@ -7,6 +7,15 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
+
+// TODOS
+// change language in app -> currently read from system
+// nicer style
+// deselection by clicking outside of widget
+// nicer styling (borders, ...)
+// read preferences from file (no hardcoding anymore)
+
+
 void main() {
   runApp(
     MultiProvider(
