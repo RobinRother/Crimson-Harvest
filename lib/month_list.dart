@@ -11,7 +11,7 @@ class MonthList extends StatelessWidget {
 
   @override
   build(BuildContext context) {
-    List dateList = calcDates(calendarStart, calendarEnd);
+    List dateList = calcDates(calendarStart, calendarEnd, context);
 
     return Column(
       children: [
@@ -36,7 +36,7 @@ class MonthList extends StatelessWidget {
     );
   }
 
-  List calcDates(DateTime calendarStart, DateTime calendarEnd){
+  List calcDates(DateTime calendarStart, DateTime calendarEnd, BuildContext context){
     List<List> calculatedDateList = [];
     DateTime dayIterator = calendarStart;
     int monthIndex = 0;
@@ -55,18 +55,18 @@ class MonthList extends StatelessWidget {
 
         // create list with gap days
         while(gap > 0){
-          firstElement.add(Day.placeholder(date: dayIterator));
+          firstElement.add(Day.placeholder(date: dayIterator, context: context));
           gap = gap - 1;
         }
 
-        firstElement.add(Day(date: dayIterator));
+        firstElement.add(Day(date: dayIterator, context: context));
         calculatedDateList.add(firstElement);
         dayIterator = dayIterator.add(const Duration(days: 1));
         //avoid adding day 1 two times
         continue;
       }
 
-      calculatedDateList[monthIndex].add(Day(date: dayIterator));
+      calculatedDateList[monthIndex].add(Day(date: dayIterator, context: context));
       dayIterator = dayIterator.add(const Duration(days: 1));
     }
     return calculatedDateList;

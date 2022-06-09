@@ -28,18 +28,18 @@ class Day {
   // map numeric month value to named month
   String mapMonthName(context){
     List<String> months = [
-      AppLocalizations.of(context)!.january,
-      AppLocalizations.of(context)!.february,
-      AppLocalizations.of(context)!.march,
-      AppLocalizations.of(context)!.april,
-      AppLocalizations.of(context)!.may,
-      AppLocalizations.of(context)!.june,
-      AppLocalizations.of(context)!.july,
-      AppLocalizations.of(context)!.august,
-      AppLocalizations.of(context)!.september,
-      AppLocalizations.of(context)!.october,
-      AppLocalizations.of(context)!.november,
-      AppLocalizations.of(context)!.december,
+      AppLocalizations.of(context)?.january ?? "",
+      AppLocalizations.of(context)?.february ?? "",
+      AppLocalizations.of(context)?.march ?? "",
+      AppLocalizations.of(context)?.april ?? "",
+      AppLocalizations.of(context)?.may ?? "",
+      AppLocalizations.of(context)?.june ?? "",
+      AppLocalizations.of(context)?.july ?? "",
+      AppLocalizations.of(context)?.august ?? "",
+      AppLocalizations.of(context)?.september ?? "",
+      AppLocalizations.of(context)?.october ?? "",
+      AppLocalizations.of(context)?.november ?? "",
+      AppLocalizations.of(context)?.december ?? "",
     ];
     return months[_monthNum - 1];
   }

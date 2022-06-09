@@ -1,3 +1,4 @@
+import 'package:crimson_harvest/day.dart';
 import 'package:crimson_harvest/l10n/l10n.dart';
 import 'package:crimson_harvest/month_list.dart';
 import 'package:crimson_harvest/providers/selected_day_provider.dart';
@@ -10,7 +11,7 @@ void main() {
   runApp(
     MultiProvider(
       providers: [
-        ChangeNotifierProvider(create: (_) => SelectedDay()),
+        ChangeNotifierProvider(create: (context) => SelectedDay(Day(date: DateTime.utc(1980), context: context))),
       ],
       child: MyApp(),
     )

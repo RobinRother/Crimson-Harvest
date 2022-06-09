@@ -2,11 +2,13 @@ import 'package:flutter/material.dart';
 import '../day.dart';
 
 class SelectedDay with ChangeNotifier{
-  Day _selectedDay = Day(date: DateTime.utc(1980));
+  Day _selectedDay;
   bool _isSelected = false;   // @TODO how long shall you live? until death? changing pages?
 
   Day get selectedDay => _selectedDay;
   bool get isSelected => _isSelected;
+
+  SelectedDay(this._selectedDay);
 
   void changeSelection(Day newSelection){
     // @TODO tapping outside of grid?
