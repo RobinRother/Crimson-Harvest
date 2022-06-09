@@ -1,0 +1,22 @@
+{
+  "language": "Deutsch",
+  "rowMonday": "Mo",
+  "rowTuesday": "Di",
+  "rowWednesday": "Mi",
+  "rowThursday": "Do",
+  "rowFriday": "Fr",
+  "rowSaturday": "Sa",
+  "rowSunday": "So",
+  "january": "Januar",
+  "february": "Februar",
+  "march": "März",
+  "april": "April",
+  "may": "Mai",
+  "june": "Juni",
+  "july": "Juli",
+  "august": "August",
+  "september": "September",
+  "october": "Oktober",
+  "november": "November",
+  "december": "Dezember"
+}
