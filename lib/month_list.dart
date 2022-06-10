@@ -5,8 +5,20 @@ import 'weekday_row.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 import 'providers/current_month_provider.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter/scheduler.dart';
 
-class MonthList extends StatelessWidget {
+class MonthList extends StatefulWidget {
+  @override
+  State<MonthList> createState() => _MonthListState();
+}
+
+class _MonthListState extends State<MonthList> {
+  @override
+  void initState() {
+    super.initState();
+    SchedulerBinding.instance.addPostFrameCallback((_) => context.read<CurrentMonthProvider>().scrollToCurrentMonth());
+  }
+
   @override
   build(BuildContext context) {
     List dateList = calcDates(context.watch<CurrentMonthProvider>().calendarStart, context.watch<CurrentMonthProvider>().calendarEnd, context);
