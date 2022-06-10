@@ -8,8 +8,17 @@ class DayGrid extends StatelessWidget{
   final Day activeDayObject;
   final bool isGapDay;
 
+  bool isCurrentDay(){    // function or variable
+    DateTime currentDay = DateTime.now();
+    if(currentDay.year == activeDayObject.year && currentDay.month == activeDayObject.monthNum && currentDay.day == activeDayObject.day){
+      return true;
+    }
+    return false;
+  }
+
   Color chooseColor(BuildContext context){
-    bool activeDayObjectIsSelected = context.watch<SelectedDay>().isSelected && context.watch<SelectedDay>().selectedDay == activeDayObject;
+    bool activeDayObjectIsSelected = context.watch<SelectedDayProvider>().isSelected && context.watch<SelectedDayProvider>().selectedDayProvider == activeDayObject;
+
     // @TODO later add current day selection
     // @TODO code colours in settings
     if(isGapDay){
@@ -17,6 +26,9 @@ class DayGrid extends StatelessWidget{
     }
     else if(activeDayObjectIsSelected){
       return Colors.deepOrange;
+    }
+    else if(isCurrentDay()){
+      return Colors.pink;
     }
     else{
       return Colors.amber;
@@ -26,7 +38,7 @@ class DayGrid extends StatelessWidget{
   @override
   build(BuildContext context){
     return GestureDetector(
-      onTap: () => context.read<SelectedDay>().changeSelection(activeDayObject),
+      onTap: () => context.read<SelectedDayProvider>().changeSelection(activeDayObject),
       child: Container(
         color: chooseColor(context),
         child: isGapDay ? const Text('') : Text(activeDayObject.day.toString()),

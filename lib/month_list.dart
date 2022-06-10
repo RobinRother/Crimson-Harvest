@@ -2,23 +2,34 @@ import 'package:flutter/material.dart';
 import 'day.dart';
 import 'month_grid.dart';
 import 'weekday_row.dart';
+import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
+import 'providers/current_month_provider.dart';
+import 'package:provider/provider.dart';
+import 'package:flutter/scheduler.dart';
 
-class MonthList extends StatelessWidget {
+class MonthList extends StatefulWidget {
+  @override
+  State<MonthList> createState() => _MonthListState();
+}
 
-  // @TODO make it later dyncamic to current day OR even in settings
-  final DateTime calendarStart = DateTime.utc(2020, 1, 1);
-  final DateTime calendarEnd = DateTime.utc(2028, 1, 1);
+class _MonthListState extends State<MonthList> {
+  @override
+  void initState() {
+    super.initState();
+    SchedulerBinding.instance.addPostFrameCallback((_) => context.read<CurrentMonthProvider>().scrollToCurrentMonth());
+  }
 
   @override
   build(BuildContext context) {
-    List dateList = calcDates(calendarStart, calendarEnd);
+    List dateList = calcDates(context.watch<CurrentMonthProvider>().calendarStart, context.watch<CurrentMonthProvider>().calendarEnd, context);
+    ItemScrollController _itemScrollController = context.watch<CurrentMonthProvider>().itemScrollControler;
 
     return Column(
       children: [
         WeekdayRow(),
         Expanded(
-          child: ListView.builder(
-            //shrinkWrap: true,
+          child: ScrollablePositionedList.builder(
+            itemScrollController: _itemScrollController,
             scrollDirection: Axis.vertical,
             itemBuilder: (BuildContext context, int index) {
               return MonthGrid(
@@ -36,7 +47,7 @@ class MonthList extends StatelessWidget {
     );
   }
 
-  List calcDates(DateTime calendarStart, DateTime calendarEnd){
+  List calcDates(DateTime calendarStart, DateTime calendarEnd, BuildContext context){
     List<List> calculatedDateList = [];
     DateTime dayIterator = calendarStart;
     int monthIndex = 0;
@@ -55,18 +66,18 @@ class MonthList extends StatelessWidget {
 
         // create list with gap days
         while(gap > 0){
-          firstElement.add(Day.placeholder(date: dayIterator));
+          firstElement.add(Day.placeholder(date: dayIterator, context: context));
           gap = gap - 1;
         }
 
-        firstElement.add(Day(date: dayIterator));
+        firstElement.add(Day(date: dayIterator, context: context));
         calculatedDateList.add(firstElement);
         dayIterator = dayIterator.add(const Duration(days: 1));
         //avoid adding day 1 two times
         continue;
       }
 
-      calculatedDateList[monthIndex].add(Day(date: dayIterator));
+      calculatedDateList[monthIndex].add(Day(date: dayIterator, context: context));
       dayIterator = dayIterator.add(const Duration(days: 1));
     }
     return calculatedDateList;

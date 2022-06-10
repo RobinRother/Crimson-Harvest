@@ -1,0 +1,82 @@
+{
+  "language": "English",
+  "@language":{
+    "description": "The current language"
+  },
+  "rowMonday": "Mo",
+  "@rowMonday":{
+    "description": "Abbrevation of Monday for weekday header"
+  },
+  "rowTuesday": "Tu",
+  "@rowTuesday":{
+    "description": "Abbrevation of Tuesday for weekday header"
+  },
+  "rowWednesday": "We",
+  "@rowWednesday":{
+    "description": "Abbrevation of Wednesday for weekday header"
+  },
+  "rowThursday": "Th",
+  "@rowThursday":{
+    "description": "Abbrevation of Thursday for weekday header"
+  },
+  "rowFriday": "Fr",
+  "@rowFriday":{
+    "description": "Abbrevation of Friday for weekday header"
+  },
+  "rowSaturday": "Sa",
+  "@rowSaturday":{
+    "description": "Abbrevation of Saturday for weekday header"
+  },
+  "rowSunday": "Su",
+  "@rowSunday":{
+    "description": "Abbrevation of Sunday for weekday header"
+  },
+  "january": "January",
+  "@january":{
+    "description": "First month of the year"
+  },
+  "february": "February",
+  "@february":{
+    "description": "Second month of the year"
+  },
+  "march": "March",
+  "@march":{
+    "description": "Third month of the year"
+  },
+  "april": "April",
+  "@april":{
+    "description": "Fourth month of the year"
+  },
+  "may": "May",
+  "@may":{
+    "description": "Fifth month of the year"
+  },
+  "june": "June",
+  "@june":{
+    "description": "Sixth month of the year"
+  },
+  "july": "July",
+  "@july":{
+    "description": "Seventh month of the year"
+  },
+  "august": "August",
+  "@august":{
+    "description": "Eight month of the year"
+  },
+  "september": "September",
+  "@september":{
+    "description": "Ninth month of the year"
+  },
+  "october": "October",
+  "@october":{
+    "description": "Tenth month of the year"
+  },
+  "november": "November",
+  "@november":{
+    "description": "Eleventh month of the year"
+  },
+  "december": "December",
+  "@december":{
+    "description": "Twelfth month of the year"
+  }
+}
