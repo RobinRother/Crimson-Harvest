@@ -10,14 +10,14 @@ class MonthList extends StatelessWidget {
   @override
   build(BuildContext context) {
     List dateList = calcDates(context.watch<CurrentMonthProvider>().calendarStart, context.watch<CurrentMonthProvider>().calendarEnd, context);
-    //ItemScrollController _itemScrollController = context.watch<CurrentMonthProvider>().itemScrollControler;
+    ItemScrollController _itemScrollController = context.watch<CurrentMonthProvider>().itemScrollControler;
 
     return Column(
       children: [
         WeekdayRow(),
         Expanded(
           child: ScrollablePositionedList.builder(
-            itemScrollController: context.watch<CurrentMonthProvider>().itemScrollControler,
+            itemScrollController: _itemScrollController,
             scrollDirection: Axis.vertical,
             itemBuilder: (BuildContext context, int index) {
               return MonthGrid(
