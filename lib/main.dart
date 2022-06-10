@@ -9,10 +9,8 @@ import 'package:provider/provider.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'providers/current_month_provider.dart';
 
-
 // TODOS
 // change language in app -> currently read from system
-// nicer style
 // deselection by clicking outside of widget
 // nicer styling (borders, ...)
 // read preferences from file (no hardcoding anymore)
@@ -38,25 +36,25 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(
-          title: Text('Crimson Harvest'),
+          title: const Text('Crimson Harvest'),
           actions: [
             IconButton(
-              onPressed: () => context.read<CurrentMonthProvider>().scrollToCurrentMonth(3),
+              onPressed: () => context.read<CurrentMonthProvider>().scrollToCurrentMonth(),
               icon: const Icon(Icons.calendar_today_outlined),
             ),
-            IconButton(
+            const IconButton(
               onPressed: null, 
-              icon: const Icon(Icons.menu_outlined),
+              icon: Icon(Icons.menu_outlined),
             ),
           ],
         ),
         body: MonthList(),
       ),
       supportedLocales: L10n.all,
-      localizationsDelegates: [
+      localizationsDelegates: const [
         AppLocalizations.delegate,
         GlobalMaterialLocalizations.delegate,
-        // GlobalCupertinoLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
         GlobalWidgetsLocalizations.delegate,
       ],
     );

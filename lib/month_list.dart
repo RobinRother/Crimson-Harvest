@@ -7,23 +7,17 @@ import 'providers/current_month_provider.dart';
 import 'package:provider/provider.dart';
 
 class MonthList extends StatelessWidget {
-
-  // @TODO make it later dyncamic to current day OR even in settings
-  final DateTime calendarStart = DateTime.utc(2020, 1, 1);
-  final DateTime calendarEnd = DateTime.utc(2028, 1, 1);
-
   @override
   build(BuildContext context) {
-    List dateList = calcDates(calendarStart, calendarEnd, context);
-    int currentMonthIndex = calcCurrentMonthIndex(dateList);
-    ItemScrollController _itemScrollController = context.watch<CurrentMonthProvider>().itemScrollControler;
+    List dateList = calcDates(context.watch<CurrentMonthProvider>().calendarStart, context.watch<CurrentMonthProvider>().calendarEnd, context);
+    //ItemScrollController _itemScrollController = context.watch<CurrentMonthProvider>().itemScrollControler;
 
     return Column(
       children: [
         WeekdayRow(),
         Expanded(
           child: ScrollablePositionedList.builder(
-            itemScrollController: _itemScrollController,
+            itemScrollController: context.watch<CurrentMonthProvider>().itemScrollControler,
             scrollDirection: Axis.vertical,
             itemBuilder: (BuildContext context, int index) {
               return MonthGrid(
@@ -39,17 +33,6 @@ class MonthList extends StatelessWidget {
         ),
       ],
     );
-  }
-
-  int calcCurrentMonthIndex(List dateList){
-    DateTime currentDay = DateTime.now();
-    int index = 0;
-    //accessing in list of months first day (doesn't matter if gap day)
-    while(currentDay.year != dateList[index][0].year || currentDay.month != dateList[index][0].monthNum){
-      index++;
-    }
-    // otherwise error?
-    return index;
   }
 
   List calcDates(DateTime calendarStart, DateTime calendarEnd, BuildContext context){
