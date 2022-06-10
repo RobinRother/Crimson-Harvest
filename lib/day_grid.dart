@@ -17,7 +17,7 @@ class DayGrid extends StatelessWidget{
   }
 
   Color chooseColor(BuildContext context){
-    bool activeDayObjectIsSelected = context.watch<SelectedDay>().isSelected && context.watch<SelectedDay>().selectedDay == activeDayObject;
+    bool activeDayObjectIsSelected = context.watch<SelectedDayProvider>().isSelected && context.watch<SelectedDayProvider>().selectedDayProvider == activeDayObject;
 
     // @TODO later add current day selection
     // @TODO code colours in settings
@@ -38,7 +38,7 @@ class DayGrid extends StatelessWidget{
   @override
   build(BuildContext context){
     return GestureDetector(
-      onTap: () => context.read<SelectedDay>().changeSelection(activeDayObject),
+      onTap: () => context.read<SelectedDayProvider>().changeSelection(activeDayObject),
       child: Container(
         color: chooseColor(context),
         child: isGapDay ? const Text('') : Text(activeDayObject.day.toString()),

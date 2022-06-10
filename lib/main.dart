@@ -1,11 +1,13 @@
 import 'package:crimson_harvest/day.dart';
 import 'package:crimson_harvest/l10n/l10n.dart';
 import 'package:crimson_harvest/month_list.dart';
+import 'package:crimson_harvest/providers/current_month_provider.dart';
 import 'package:crimson_harvest/providers/selected_day_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'providers/current_month_provider.dart';
 
 
 // TODOS
@@ -20,7 +22,8 @@ void main() {
   runApp(
     MultiProvider(
       providers: [
-        ChangeNotifierProvider(create: (context) => SelectedDay(Day(date: DateTime.utc(1980), context: context))),
+        ChangeNotifierProvider(create: (context) => SelectedDayProvider(Day(date: DateTime.utc(1980), context: context))),
+        ChangeNotifierProvider(create: (_) => CurrentMonthProvider()),
       ],
       child: MyApp(),
     )
@@ -34,7 +37,19 @@ class MyApp extends StatelessWidget {
   build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
-        appBar: AppBar(),
+        appBar: AppBar(
+          title: Text('Crimson Harvest'),
+          actions: [
+            IconButton(
+              onPressed: () => context.read<CurrentMonthProvider>().scrollToCurrentMonth(3),
+              icon: const Icon(Icons.calendar_today_outlined),
+            ),
+            IconButton(
+              onPressed: null, 
+              icon: const Icon(Icons.menu_outlined),
+            ),
+          ],
+        ),
         body: MonthList(),
       ),
       supportedLocales: L10n.all,

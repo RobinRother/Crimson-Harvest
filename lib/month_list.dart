@@ -3,18 +3,20 @@ import 'day.dart';
 import 'month_grid.dart';
 import 'weekday_row.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
+import 'providers/current_month_provider.dart';
+import 'package:provider/provider.dart';
 
 class MonthList extends StatelessWidget {
 
   // @TODO make it later dyncamic to current day OR even in settings
   final DateTime calendarStart = DateTime.utc(2020, 1, 1);
   final DateTime calendarEnd = DateTime.utc(2028, 1, 1);
-  final ItemScrollController _itemScrollController = ItemScrollController();
 
   @override
   build(BuildContext context) {
     List dateList = calcDates(calendarStart, calendarEnd, context);
     int currentMonthIndex = calcCurrentMonthIndex(dateList);
+    ItemScrollController _itemScrollController = context.watch<CurrentMonthProvider>().itemScrollControler;
 
     return Column(
       children: [
@@ -35,14 +37,8 @@ class MonthList extends StatelessWidget {
             itemCount: dateList.length,
           ),
         ),
-        FloatingActionButton(
-          onPressed: () => currentMonth(currentMonthIndex))
       ],
     );
-  }
-
-  void currentMonth(int currentMonthIndex){
-    _itemScrollController.jumpTo(index: currentMonthIndex);
   }
 
   int calcCurrentMonthIndex(List dateList){
