@@ -1,13 +1,15 @@
+import 'package:flutter/material.dart';
+import 'package:crimson_harvest/calendar_view_route/calendar_view.dart';
+import 'package:crimson_harvest/detail_view_route/detail_view.dart';
 import 'package:crimson_harvest/day.dart';
 import 'package:crimson_harvest/l10n/l10n.dart';
-import 'package:crimson_harvest/month_list.dart';
 import 'package:crimson_harvest/providers/current_month_provider.dart';
 import 'package:crimson_harvest/providers/selected_day_provider.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'providers/current_month_provider.dart';
+import 'calendar_view_route/calendar_view.dart';
 
 // TODOS
 // change language in app -> currently read from system
@@ -23,40 +25,21 @@ void main() {
         ChangeNotifierProvider(create: (context) => SelectedDayProvider(Day(date: DateTime.utc(1980), context: context))),
         ChangeNotifierProvider(create: (_) => CurrentMonthProvider()),
       ],
-      child: MyApp(),
+      child: MaterialApp(
+        initialRoute: '/',
+        routes: {
+          '/': (context) => CalendarView(),
+          '/detail_view': (context) => DetailView(),
+        },
+        supportedLocales: L10n.all,
+        localizationsDelegates: const [
+          AppLocalizations.delegate,
+          GlobalMaterialLocalizations.delegate,
+          GlobalCupertinoLocalizations.delegate,
+          GlobalWidgetsLocalizations.delegate,
+        ],
+      ),
     )
   );
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
-
-  @override
-  build(BuildContext context) {
-    return MaterialApp(
-      home: Scaffold(
-        appBar: AppBar(
-          title: const Text('Crimson Harvest'),
-          actions: [
-            IconButton(
-              onPressed: () => context.read<CurrentMonthProvider>().scrollToCurrentMonth(),
-              icon: const Icon(Icons.calendar_today_outlined),
-            ),
-            const IconButton(
-              onPressed: null, 
-              icon: Icon(Icons.menu_outlined),
-            ),
-          ],
-        ),
-        body: MonthList(),
-      ),
-      supportedLocales: L10n.all,
-      localizationsDelegates: const [
-        AppLocalizations.delegate,
-        GlobalMaterialLocalizations.delegate,
-        GlobalCupertinoLocalizations.delegate,
-        GlobalWidgetsLocalizations.delegate,
-      ],
-    );
-  }
-}
