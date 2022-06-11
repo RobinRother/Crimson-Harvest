@@ -18,7 +18,7 @@ class DayGrid extends StatelessWidget{
   }
 
   Color chooseColor(BuildContext context){
-    bool activeDayObjectIsSelected = context.watch<SelectedDayProvider>().isSelected && context.watch<SelectedDayProvider>().selectedDayProvider == activeDayObject;
+    bool activeDayObjectIsSelected = context.watch<SelectedDayProvider>().isSelected && context.watch<SelectedDayProvider>().selectedDay == activeDayObject;
 
     // @TODO later add current day selection
     // @TODO code colours in settings
