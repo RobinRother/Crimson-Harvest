@@ -15,8 +15,8 @@ class CalendarView extends StatelessWidget {
             onPressed: () => context.read<CurrentMonthProvider>().scrollToCurrentMonth(),
             icon: const Icon(Icons.calendar_today_outlined),
           ),
-          const IconButton(
-            onPressed: null, 
+          IconButton(
+            onPressed: null,
             icon: Icon(Icons.menu_outlined),
           ),
         ],

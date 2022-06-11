@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:crimson_harvest/calendar_view_route/day_grid.dart';
 import 'package:crimson_harvest/calendar_view_route/calendar_view.dart';
 import 'package:crimson_harvest/detail_view_route/detail_view.dart';
 import 'package:crimson_harvest/day.dart';
@@ -9,7 +10,6 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'providers/current_month_provider.dart';
-import 'calendar_view_route/calendar_view.dart';
 
 // TODOS
 // change language in app -> currently read from system
@@ -29,7 +29,7 @@ void main() {
         initialRoute: '/',
         routes: {
           '/': (context) => CalendarView(),
-          '/detail_view': (context) => DetailView(),
+          DayGrid.routeDetailView: (context) => DetailView(),
         },
         supportedLocales: L10n.all,
         localizationsDelegates: const [

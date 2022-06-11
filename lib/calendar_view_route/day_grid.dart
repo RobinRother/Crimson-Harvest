@@ -7,6 +7,7 @@ class DayGrid extends StatelessWidget{
   DayGrid({required Day this.activeDayObject, required this.isGapDay});
   final Day activeDayObject;
   final bool isGapDay;
+  static const String routeDetailView = "/detail_view";
 
   bool isCurrentDay(){    // function or variable
     DateTime currentDay = DateTime.now();
@@ -38,6 +39,12 @@ class DayGrid extends StatelessWidget{
   @override
   build(BuildContext context){
     return GestureDetector(
+      onDoubleTap: () {
+        Navigator.pushNamed(
+          context, 
+          routeDetailView,
+        );
+      }, 
       onTap: () => context.read<SelectedDayProvider>().changeSelection(activeDayObject),
       child: Container(
         color: chooseColor(context),
