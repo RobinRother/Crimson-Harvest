@@ -1,3 +1,4 @@
+import 'package:crimson_harvest/detail_view_route/note_field.dart';
 import 'package:crimson_harvest/providers/selected_day_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter/material.dart';
@@ -19,18 +20,7 @@ class DetailView extends StatelessWidget{
           ),
         ],
       ),
-      body: const SizedBox(
-        height: double.infinity,
-        width: double.infinity, 
-        child: Card(
-          child: Center(
-            child: const Text('DETAIL VIEW !!!!'),
-          ),
-          color: Colors.blueGrey,
-          borderOnForeground: true,
-          shape: RoundedRectangleBorder(),
-        ),
-      ),
+      body: NoteField(),
     );
   }
 }

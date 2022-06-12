@@ -16,7 +16,7 @@ import 'providers/current_month_provider.dart';
 // deselection by clicking outside of widget
 // nicer styling (borders, ...)
 // read preferences from file (no hardcoding anymore)
-
+// update today when day changes?
 
 void main() {
   runApp(
