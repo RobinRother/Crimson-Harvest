@@ -9,18 +9,21 @@ class DetailView extends StatelessWidget{
   Widget build(BuildContext context) {
     final Day date = context.watch<SelectedDayProvider>().selectedDay;
 
-    return Scaffold(
-      // appbar als festes widget auslagern?
-      appBar: AppBar(
-        title: Text('${date.day}. ${date.monthName} ${date.year}'),
-        actions: const [
-          IconButton(
-            onPressed: null,
-            icon: Icon(Icons.menu_outlined),
-          ),
-        ],
+    return GestureDetector(
+      onTap: () => FocusScope.of(context).unfocus(),
+      child: Scaffold(
+        // appbar als festes widget auslagern?
+        appBar: AppBar(
+          title: Text('${date.day}. ${date.monthName} ${date.year}'),
+          actions: const [
+            IconButton(
+              onPressed: null,
+              icon: Icon(Icons.menu_outlined),
+            ),
+          ],
+        ),
+        body: NoteField(),
       ),
-      body: NoteField(),
     );
   }
 }
