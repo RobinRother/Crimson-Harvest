@@ -1,4 +1,3 @@
-import 'package:crimson_harvest/day.dart';
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
@@ -18,6 +17,7 @@ class _NoteFieldState extends State<NoteField> {
   @override
   void dispose() {
     textController.dispose();
+    notesBox.close();
     super.dispose();
   }
 
