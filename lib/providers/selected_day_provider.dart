@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../day.dart';
+import '../non_widget/day.dart';
 
 class SelectedDayProvider with ChangeNotifier{
   Day _selectedDay;

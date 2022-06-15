@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../providers/selected_day_provider.dart';
-import '../day.dart';
+import '../non_widget/day.dart';
 
 class DayGrid extends StatelessWidget{
   DayGrid({required Day this.activeDayObject, required this.isGapDay});

@@ -2,7 +2,7 @@ import 'package:crimson_harvest/detail_view_route/note_field.dart';
 import 'package:crimson_harvest/providers/selected_day_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter/material.dart';
-import 'package:crimson_harvest/day.dart';
+import 'package:crimson_harvest/non_widget/day.dart';
 
 class DetailView extends StatelessWidget{
   @override
