@@ -10,6 +10,8 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'providers/current_month_provider.dart';
+import 'package:hive/hive.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 
 // TODOS
 // change language in app -> currently read from system
@@ -18,7 +20,9 @@ import 'providers/current_month_provider.dart';
 // read preferences from file (no hardcoding anymore)
 // update today when day changes?
 
-void main() {
+void main() async {
+  await Hive.initFlutter();
+
   runApp(
     MultiProvider(
       providers: [

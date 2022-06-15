@@ -8,6 +8,7 @@ class DetailView extends StatelessWidget{
   @override
   Widget build(BuildContext context) {
     final Day date = context.watch<SelectedDayProvider>().selectedDay;
+    String dateKey = date.year.toString() + ' - ' + date.monthName + ' - ' + date.day.toString();
 
     return GestureDetector(
       onTap: () => FocusScope.of(context).unfocus(),
@@ -22,7 +23,7 @@ class DetailView extends StatelessWidget{
             ),
           ],
         ),
-        body: NoteField(),
+        body: NoteField(activeDayKey: dateKey),
       ),
     );
   }

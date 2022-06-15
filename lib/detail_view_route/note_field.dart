@@ -1,12 +1,19 @@
+import 'package:crimson_harvest/day.dart';
 import 'package:flutter/material.dart';
+import 'package:hive/hive.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 
 class NoteField extends StatefulWidget{
+  final String activeDayKey;
+  const NoteField({Key? key, required this.activeDayKey}) : super(key: key);
+
   @override
   State<NoteField> createState() => _NoteFieldState();
 }
 
 class _NoteFieldState extends State<NoteField> {
   final textController = TextEditingController();
+  late Box notesBox;
 
   @override
   void dispose() {
@@ -18,6 +25,25 @@ class _NoteFieldState extends State<NoteField> {
   void initState() {
     super.initState();
     textController.addListener(() {print(textController.text);});
+    createOpenBox();
+  }
+
+  void createOpenBox() async {
+    notesBox = await Hive.openBox('notesBox');
+    getNotes();
+  }
+
+  void saveNotes() {
+    notesBox.put(widget.activeDayKey, textController.value.text);
+  }
+
+  void getNotes(){
+    if(notesBox.get(widget.activeDayKey) != null){
+      textController.text = notesBox.get(widget.activeDayKey);
+      setState(() {
+        
+      });
+    }
   }
 
   @override 
@@ -34,6 +60,7 @@ class _NoteFieldState extends State<NoteField> {
         padding: const EdgeInsets.all(24),
         child: TextField(
           controller: textController,
+          onTap: saveNotes, // ontap is dumb -> but how, arrow back?
           onChanged: (text) {
             print('First text field: $text');
           },
