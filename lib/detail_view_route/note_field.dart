@@ -64,14 +64,19 @@ class _NoteFieldState extends State<NoteField> {
         padding: const EdgeInsets.all(24),
         child: TextField(
           controller: textController,
-          onTap: saveNotes, // ontap is dumb -> but how, arrow back?
           onChanged: (text) {
             print('First text field: $text');
           },
           keyboardType: TextInputType.multiline,
           maxLines: null,
           minLines: 10,
-          decoration: null
+          decoration: InputDecoration(
+            border: InputBorder.none,
+            suffix: IconButton(
+              onPressed: saveNotes,
+              icon: const Icon(Icons.check),
+            ),
+          ),
         ),
       ),
     );
