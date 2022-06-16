@@ -1,19 +1,19 @@
 import 'package:flutter/material.dart';
-import '../day.dart';
+import '../non_widget/day.dart';
 
 class SelectedDayProvider with ChangeNotifier{
-  Day _selectedDayProvider;
+  Day _selectedDay;
   bool _isSelected = false;   // @TODO how long shall you live? until death? changing pages?
 
-  Day get selectedDayProvider => _selectedDayProvider;
+  Day get selectedDay => _selectedDay;
   bool get isSelected => _isSelected;
 
-  SelectedDayProvider(this._selectedDayProvider);
+  SelectedDayProvider(this._selectedDay);
 
   void changeSelection(Day newSelection){
     // @TODO tapping outside of grid?
     // selecting the same day
-    if(selectedDayProvider == newSelection){
+    if(selectedDay == newSelection){
       // not necessarily deselection (e.g. 3 times in a row)
       _isSelected = !_isSelected;
     }
@@ -23,7 +23,7 @@ class SelectedDayProvider with ChangeNotifier{
     }
     // selecting different, but valid day
     else{
-      _selectedDayProvider = newSelection;
+      _selectedDay = newSelection;
       _isSelected = true;
     }
     notifyListeners();

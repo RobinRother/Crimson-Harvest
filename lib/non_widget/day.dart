@@ -1,13 +1,11 @@
-import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class Day {
   int _day = 0;
-  int _monthNum = 0;
-  String _monthName = '';
-  int _year = 0;
-  String _notes = '';
-  bool isSelected = false;
+  late int _monthNum;
+  late String _monthName;
+  late int _year;
+  String _activeDayKey = '';
   //timerange stuff
 
   Day({required date, required context}){
@@ -15,6 +13,7 @@ class Day {
     _monthNum = date.month;
     _monthName = mapMonthName(context);
     _year = date.year;
+    _activeDayKey = date.toString();
   }
 
   // to create Day with an invalid day value as gap day
@@ -51,4 +50,6 @@ class Day {
   String get monthName =>_monthName;
 
   int get year => _year;
+
+  String get activeDayKey => _activeDayKey;
 }

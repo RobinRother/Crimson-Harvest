@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'day.dart';
+import '../non_widget/day.dart';
 import 'month_grid.dart';
 import 'weekday_row.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
-import 'providers/current_month_provider.dart';
+import '../providers/current_month_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter/scheduler.dart';
 

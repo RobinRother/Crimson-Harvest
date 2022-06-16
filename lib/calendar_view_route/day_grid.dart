@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'providers/selected_day_provider.dart';
-import 'day.dart';
+import '../providers/selected_day_provider.dart';
+import '../non_widget/day.dart';
 
 class DayGrid extends StatelessWidget{
   DayGrid({required Day this.activeDayObject, required this.isGapDay});
   final Day activeDayObject;
   final bool isGapDay;
+  static const String routeDetailView = "/detail_view";
 
   bool isCurrentDay(){    // function or variable
     DateTime currentDay = DateTime.now();
@@ -17,7 +18,7 @@ class DayGrid extends StatelessWidget{
   }
 
   Color chooseColor(BuildContext context){
-    bool activeDayObjectIsSelected = context.watch<SelectedDayProvider>().isSelected && context.watch<SelectedDayProvider>().selectedDayProvider == activeDayObject;
+    bool activeDayObjectIsSelected = context.watch<SelectedDayProvider>().isSelected && context.watch<SelectedDayProvider>().selectedDay == activeDayObject;
 
     // @TODO later add current day selection
     // @TODO code colours in settings
@@ -38,6 +39,12 @@ class DayGrid extends StatelessWidget{
   @override
   build(BuildContext context){
     return GestureDetector(
+      onDoubleTap: () {
+        Navigator.pushNamed(
+          context, 
+          routeDetailView,
+        );
+      }, 
       onTap: () => context.read<SelectedDayProvider>().changeSelection(activeDayObject),
       child: Container(
         color: chooseColor(context),
