@@ -64,9 +64,6 @@ class _NoteFieldState extends State<NoteField> {
         padding: const EdgeInsets.all(24),
         child: TextField(
           controller: textController,
-          onChanged: (text) {
-            print('First text field: $text');
-          },
           keyboardType: TextInputType.multiline,
           maxLines: null,
           minLines: 10,
