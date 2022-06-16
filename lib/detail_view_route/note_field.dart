@@ -70,7 +70,10 @@ class _NoteFieldState extends State<NoteField> {
           decoration: InputDecoration(
             border: InputBorder.none,
             suffix: IconButton(
-              onPressed: saveNotes,
+              onPressed: (){
+                saveNotes; 
+                FocusScope.of(context).unfocus();
+              },
               icon: const Icon(Icons.check),
             ),
           ),
