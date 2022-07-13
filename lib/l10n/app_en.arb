@@ -78,5 +78,13 @@
   "december": "December",
   "@december":{
     "description": "Twelfth month of the year"
+  },
+  "start": "start",
+  "@start":{
+    "start": "Begin a timespan"
+  },
+  "end": "end",
+  "@end":{
+    "end": "End a timespan"
   }
 }
