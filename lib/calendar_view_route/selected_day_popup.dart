@@ -16,7 +16,7 @@ class SelectedDayPopup extends StatelessWidget{
           onPressed: null, 
           child: Text(_getTimeSpanButtonValue(context))
         ),
-        ElevatedButton(
+        const ElevatedButton(
           onPressed: null,
           child: Icon(Icons.edit_note_outlined),
         ),
