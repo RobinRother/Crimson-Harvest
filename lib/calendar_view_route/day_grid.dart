@@ -40,7 +40,30 @@ class DayGrid extends StatelessWidget{
     }
   }
 
+  Map _calcButtonOffset(BuildContext context, RenderBox renderBox){
+    Offset position = renderBox.localToGlobal(Offset.zero);
+    Size size = renderBox.size;
+    double screenHeight = MediaQuery.of(context).size.height;
+    double screenWidth = MediaQuery.of(context).size.width;
+    Map offset = {'x':size.width+8, 'y':size.height*0.75};
+    // search for alternative !!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    //double buttonSize = 
+    
+    if(position.dx > screenWidth*0.5){
+      offset['x'] = -size.width-12;
+    }
+    // do i need top limit?
+    if(position.dy > screenHeight*0.5){
+      offset['y'] = -size.height*0.75;
+    }
+
+    return offset;
+  }
+
   void showOverlay(BuildContext context){
+    final renderBox = context.findRenderObject() as RenderBox;
+    final position = renderBox.localToGlobal(Offset.zero);
+    Map offset = _calcButtonOffset(context, renderBox);
     OverlayState? overlayState = Overlay.of(context);
     overlayEntry = OverlayEntry(
       builder: (context) {
@@ -51,7 +74,11 @@ class DayGrid extends StatelessWidget{
                 onTap: () => overlayEntry.remove(),
               ),
             ),
-            SelectedDayPopup(overlayEntry: overlayEntry,),
+            Positioned(
+              child: SelectedDayPopup(overlayEntry: overlayEntry,),
+              left: position.dx + offset['x'],
+              top: position.dy + offset['y'],
+            )
           ],
         );
       }
@@ -64,7 +91,9 @@ class DayGrid extends StatelessWidget{
     return GestureDetector(
       onTap: () {
         context.read<SelectedDayProvider>().changeSelection(activeDayObject);
-        showOverlay(context);
+        if(!isGapDay){
+          showOverlay(context);
+        }
       },
       child: Container(
         color: chooseColor(context),
