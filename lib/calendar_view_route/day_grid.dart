@@ -69,6 +69,7 @@ class DayGrid extends StatelessWidget{
             GestureDetector(
               onTap: () {
                 overlayEntry.remove();
+                context.read<SelectedDayProvider>().removeSelection();
               },
             ),
             CompositedTransformFollower(
