@@ -2,12 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../providers/selected_day_provider.dart';
 import '../non_widget/day.dart';
+import 'package:crimson_harvest/calendar_view_route/day_interaction_overlay.dart';
 
 class DayGrid extends StatelessWidget{
   DayGrid({required Day this.activeDayObject, required this.isGapDay});
   final Day activeDayObject;
   final bool isGapDay;
   static const String routeDetailView = "/detail_view";
+  late OverlayEntry overlayEntry;
 
   bool isCurrentDay(){    // function or variable
     DateTime currentDay = DateTime.now();
@@ -36,6 +38,26 @@ class DayGrid extends StatelessWidget{
     }
   }
 
+  void _showOverlay(BuildContext context){
+    OverlayState? overlayState = Overlay.of(context);
+    overlayEntry = OverlayEntry(
+      builder: (context) {
+        return Stack(
+          children: [
+            GestureDetector(
+              onTap: () {
+                overlayEntry.remove();
+              },
+              onVerticalDragDown: (context) => overlayEntry.remove(),
+            ),
+            DayInteractionOverlay(),
+          ],
+        );
+      },
+    );
+    overlayState?.insert(overlayEntry);
+  }
+
   @override
   build(BuildContext context){
     return GestureDetector(
@@ -45,7 +67,12 @@ class DayGrid extends StatelessWidget{
           routeDetailView,
         );
       }, 
-      onTap: () => context.read<SelectedDayProvider>().changeSelection(activeDayObject),
+      onTap: () {
+        context.read<SelectedDayProvider>().changeSelection(activeDayObject);
+        if(!isGapDay){
+          _showOverlay(context);
+        }
+      },
       child: Container(
         color: chooseColor(context),
         child: isGapDay ? const Text('') : Text(activeDayObject.day.toString()),
