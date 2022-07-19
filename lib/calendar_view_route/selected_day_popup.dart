@@ -10,7 +10,7 @@ class SelectedDayPopup extends StatelessWidget{
   
   @override
   Widget build(BuildContext context){
-    return Row(
+    return Column(
       children: [
         ElevatedButton(
           onPressed: null, 
