@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 
 class DayInteractionOverlay extends StatelessWidget {
+  static const String routeDetailView = "/detail_view";
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -16,7 +18,12 @@ class DayInteractionOverlay extends StatelessWidget {
         ElevatedButton(
           // size of icon
           child: Icon(Icons.edit_note_outlined),
-          onPressed: null, 
+          onPressed: () {
+            Navigator.pushNamed(
+              context, 
+              routeDetailView,
+            );
+          }, 
           style: ElevatedButton.styleFrom(
             shape: CircleBorder(),
             padding: EdgeInsets.all(40),

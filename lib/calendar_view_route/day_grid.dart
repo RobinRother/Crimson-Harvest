@@ -8,7 +8,6 @@ class DayGrid extends StatelessWidget{
   DayGrid({required Day this.activeDayObject, required this.isGapDay});
   final Day activeDayObject;
   final bool isGapDay;
-  static const String routeDetailView = "/detail_view";
   late OverlayEntry overlayEntry;
   final layerLink = LayerLink();
 
@@ -90,12 +89,6 @@ class DayGrid extends StatelessWidget{
     return CompositedTransformTarget(
       link: layerLink,
       child: GestureDetector(
-        onDoubleTap: () {
-          Navigator.pushNamed(
-            context, 
-            routeDetailView,
-          );
-        }, 
         onTap: () {
           context.read<SelectedDayProvider>().changeSelection(activeDayObject);
           if(!isGapDay){
