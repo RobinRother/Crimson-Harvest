@@ -1,6 +1,5 @@
 import 'package:crimson_harvest/calendar_view_route/day_interaction_overlay.dart';
 import 'package:flutter/material.dart';
-import 'package:crimson_harvest/calendar_view_route/day_grid.dart';
 import 'package:crimson_harvest/calendar_view_route/calendar_view.dart';
 import 'package:crimson_harvest/detail_view_route/detail_view.dart';
 import 'package:crimson_harvest/non_widget/day.dart';
