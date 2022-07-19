@@ -10,7 +10,7 @@ class DayInteractionOverlay extends StatelessWidget {
           onPressed: null, 
           style: ElevatedButton.styleFrom(
             shape: CircleBorder(),
-            padding: EdgeInsets.all(24),
+            padding: EdgeInsets.all(40),
           ),
         ),
         ElevatedButton(
@@ -19,8 +19,7 @@ class DayInteractionOverlay extends StatelessWidget {
           onPressed: null, 
           style: ElevatedButton.styleFrom(
             shape: CircleBorder(),
-            padding: EdgeInsets.all(24),
-            
+            padding: EdgeInsets.all(40),
           ),
         ),
       ],

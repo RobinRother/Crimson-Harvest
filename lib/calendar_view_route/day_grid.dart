@@ -10,6 +10,7 @@ class DayGrid extends StatelessWidget{
   final bool isGapDay;
   static const String routeDetailView = "/detail_view";
   late OverlayEntry overlayEntry;
+  final layerLink = LayerLink();
 
   bool isCurrentDay(){    // function or variable
     DateTime currentDay = DateTime.now();
@@ -48,9 +49,12 @@ class DayGrid extends StatelessWidget{
               onTap: () {
                 overlayEntry.remove();
               },
-              onVerticalDragDown: (context) => overlayEntry.remove(),
             ),
-            DayInteractionOverlay(),
+            CompositedTransformFollower(
+              link: layerLink,
+              
+              child: DayInteractionOverlay(),
+            ),
           ],
         );
       },
@@ -60,23 +64,26 @@ class DayGrid extends StatelessWidget{
 
   @override
   build(BuildContext context){
-    return GestureDetector(
-      onDoubleTap: () {
-        Navigator.pushNamed(
-          context, 
-          routeDetailView,
-        );
-      }, 
-      onTap: () {
-        context.read<SelectedDayProvider>().changeSelection(activeDayObject);
-        if(!isGapDay){
-          _showOverlay(context);
-        }
-      },
-      child: Container(
-        color: chooseColor(context),
-        child: isGapDay ? const Text('') : Text(activeDayObject.day.toString()),
-        // @TODO later add borders, etc StyleStuff
+    return CompositedTransformTarget(
+      link: layerLink,
+      child: GestureDetector(
+        onDoubleTap: () {
+          Navigator.pushNamed(
+            context, 
+            routeDetailView,
+          );
+        }, 
+        onTap: () {
+          context.read<SelectedDayProvider>().changeSelection(activeDayObject);
+          if(!isGapDay){
+            _showOverlay(context);
+          }
+        },
+        child: Container(
+          color: chooseColor(context),
+          child: isGapDay ? const Text('') : Text(activeDayObject.day.toString()),
+          // @TODO later add borders, etc StyleStuff
+        ),
       ),
     );
   }
