@@ -39,7 +39,29 @@ class DayGrid extends StatelessWidget{
     }
   }
 
+  Offset _calculateButtonOffset(BuildContext context, RenderBox renderBox){
+    Offset position = renderBox.localToGlobal(Offset.zero);
+    double screenHeight = MediaQuery.of(context).size.height;
+    double screenWidth = MediaQuery.of(context).size.width;
+    Size daySize = renderBox.size;
+    // how do i get this? !!!!!!!!!!!!!!!!!
+    Size buttonSize = Size(150.0, 8.0);
+    double offsetWidth = daySize.width + 0;
+    double offsetHeight = daySize.height * 0.75;
+
+    if(position.dx > screenWidth*0.6){
+      offsetWidth = -buttonSize.width;
+    }
+    // do i need top limit?
+    if(position.dy > screenHeight*0.6){
+      offsetHeight = -daySize.height*0.75;
+    }
+
+    return Offset(offsetWidth, offsetHeight);
+  }
+
   void _showOverlay(BuildContext context){
+    final renderBox = context.findRenderObject() as RenderBox;
     OverlayState? overlayState = Overlay.of(context);
     overlayEntry = OverlayEntry(
       builder: (context) {
@@ -51,8 +73,9 @@ class DayGrid extends StatelessWidget{
               },
             ),
             CompositedTransformFollower(
+              showWhenUnlinked: false,
               link: layerLink,
-              
+              offset: _calculateButtonOffset(context, renderBox),
               child: DayInteractionOverlay(),
             ),
           ],
