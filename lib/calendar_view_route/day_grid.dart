@@ -1,3 +1,5 @@
+// Stack part https://stackoverflow.com/questions/58443098/how-can-i-remove-the-overlayentry-when-i-click-outside-in-flutter
+
 import 'package:crimson_harvest/calendar_view_route/selected_day_popup.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -44,12 +46,12 @@ class DayGrid extends StatelessWidget{
       builder: (context) {
         return Stack(
           children: [
-            SelectedDayPopup(),
             Positioned.fill(
               child: GestureDetector(
                 onTap: () => overlayEntry.remove(),
               ),
             ),
+            SelectedDayPopup(overlayEntry: overlayEntry,),
           ],
         );
       }
@@ -60,12 +62,6 @@ class DayGrid extends StatelessWidget{
   @override
   build(BuildContext context){
     return GestureDetector(
-      onDoubleTap: () {
-        Navigator.pushNamed(
-          context, 
-          routeDetailView,
-        );
-      }, 
       onTap: () {
         context.read<SelectedDayProvider>().changeSelection(activeDayObject);
         showOverlay(context);
