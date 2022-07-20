@@ -38,7 +38,7 @@ void main() async {
         localizationsDelegates: const [
           AppLocalizations.delegate,
           GlobalMaterialLocalizations.delegate,
-          GlobalCupertinoLocalizations.delegate,
+          GlobalCupertinoLocalizations.delegate,    // do i need this
           GlobalWidgetsLocalizations.delegate,
         ],
       ),
