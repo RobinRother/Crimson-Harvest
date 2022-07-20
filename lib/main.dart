@@ -1,5 +1,5 @@
+import 'package:crimson_harvest/calendar_view_route/day_interaction_overlay.dart';
 import 'package:flutter/material.dart';
-import 'package:crimson_harvest/calendar_view_route/day_grid.dart';
 import 'package:crimson_harvest/calendar_view_route/calendar_view.dart';
 import 'package:crimson_harvest/detail_view_route/detail_view.dart';
 import 'package:crimson_harvest/non_widget/day.dart';
@@ -32,13 +32,13 @@ void main() async {
         initialRoute: '/',
         routes: {
           '/': (context) => CalendarView(),
-          DayGrid.routeDetailView: (context) => DetailView(),
+          DayInteractionOverlay.routeDetailView: (context) => DetailView(),
         },
         supportedLocales: L10n.all,
         localizationsDelegates: const [
           AppLocalizations.delegate,
           GlobalMaterialLocalizations.delegate,
-          GlobalCupertinoLocalizations.delegate,
+          GlobalCupertinoLocalizations.delegate,    // do i need this
           GlobalWidgetsLocalizations.delegate,
         ],
       ),
