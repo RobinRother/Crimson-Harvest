@@ -6,6 +6,8 @@ import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 import '../providers/current_month_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter/scheduler.dart';
+import 'package:hive/hive.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 
 class MonthList extends StatefulWidget {
   @override
@@ -13,10 +15,32 @@ class MonthList extends StatefulWidget {
 }
 
 class _MonthListState extends State<MonthList> {
+  late Box boxTR;
+
+  @override
+  void dispose() {
+    boxTR.close();   //box
+    super.dispose();
+  }
+
   @override
   void initState() {
     super.initState();
     SchedulerBinding.instance.addPostFrameCallback((_) => context.read<CurrentMonthProvider>().scrollToCurrentMonth());
+    createBoxTR();
+  }
+
+  void createBoxTR() async {
+    boxTR = await Hive.openBox('boxTR');
+    if(boxTR.get("first") != null){
+      print('it worked');
+    }
+    else{
+      print('probably worked');
+    }
+    setState(() {
+      
+    });
   }
 
   @override
