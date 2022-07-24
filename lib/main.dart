@@ -19,6 +19,7 @@ import 'package:hive_flutter/hive_flutter.dart';
 // nicer styling (borders, ...)
 // read preferences from file (no hardcoding anymore)
 // update today when day changes?
+// ausgrauen der start box in future
 
 void main() async {
   await Hive.initFlutter();

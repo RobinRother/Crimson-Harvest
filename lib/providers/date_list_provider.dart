@@ -106,6 +106,7 @@ class DateListProvider with ChangeNotifier{
   Future<void> saveTimeRangeStatus() async {
     bool timeRangeIsActive = false;
     String role = "";
+    bool isInFuture = false;
 
     for(int monthCounter = 0; monthCounter < dateList.length; monthCounter++){
       for(int dayCounter = 0; dayCounter < dateList[monthCounter].length; dayCounter++){
@@ -113,23 +114,43 @@ class DateListProvider with ChangeNotifier{
         if(boxTR.get(dateList[monthCounter][dayCounter].activeDayKey) != null){
           role = boxTR.get(dateList[monthCounter][dayCounter].activeDayKey);
         }
-        // more important: start at today should go only til today!
-        // why is current day not included?
-        
 
-        
-        if(role == "last" || isCurrentDay(dateList[monthCounter][dayCounter])){
-          dateList[monthCounter][dayCounter].inTimeRange = true;
-          timeRangeIsActive = false;
+        if(isInFuture){
+          continue;
         }
+        else{
+          if(role == "last"){
+            dateList[monthCounter][dayCounter].inTimeRange = true;
+            timeRangeIsActive = false;
+          }
 
-        if(role == "first" || timeRangeIsActive == true){
-          timeRangeIsActive = true;
-          dateList[monthCounter][dayCounter].inTimeRange = true;
-        }
-        
-        if(role == "" && !timeRangeIsActive && !isCurrentDay(dateList[monthCounter][dayCounter])){
-          dateList[monthCounter][dayCounter].inTimeRange = false;
+          if((role == "first" || timeRangeIsActive == true) && !isCurrentDay(dateList[monthCounter][dayCounter])){
+            timeRangeIsActive = true;
+            dateList[monthCounter][dayCounter].inTimeRange = true;
+          }
+
+          if(isCurrentDay(dateList[monthCounter][dayCounter])){
+            if(timeRangeIsActive && (role != "last")){
+              dateList[monthCounter][dayCounter].inTimeRange = true;
+              timeRangeIsActive = false;
+            }
+            else if(!timeRangeIsActive && (role == "last")){
+              dateList[monthCounter][dayCounter].inTimeRange = true;
+            }
+            else if(role == "first"){
+              dateList[monthCounter][dayCounter].inTimeRange = true;
+              timeRangeIsActive = false;
+            }
+            else{
+              dateList[monthCounter][dayCounter].inTimeRange = false;
+            }
+
+            isInFuture = true;
+          }
+          
+          if(role == "" && !timeRangeIsActive && !isCurrentDay(dateList[monthCounter][dayCounter])){
+            dateList[monthCounter][dayCounter].inTimeRange = false;
+          }
         }
       }
     }
