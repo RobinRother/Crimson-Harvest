@@ -32,8 +32,21 @@ class _MonthListState extends State<MonthList> {
 
   void createBoxTR() async {
     boxTR = await Hive.openBox('boxTR');
+    await saveTimeRangeStatus(dateList);
+  }
+
+  bool isCurrentDay(Day activeDayObject){    // function or variable
+    DateTime currentDay = DateTime.now();
+    if(currentDay.year == activeDayObject.year && currentDay.month == activeDayObject.monthNum && currentDay.day == activeDayObject.day){
+      return true;
+    }
+    return false;
+  }
+
+  Future<void> useTRBox() async {
+    boxTR.put("first", "i am lost. help");
     if(boxTR.get("first") != null){
-      print('it worked');
+      print(boxTR.get("first"));
     }
     else{
       print('probably worked');
@@ -41,6 +54,28 @@ class _MonthListState extends State<MonthList> {
     setState(() {
       
     });
+  }
+
+  Future<void> saveTimeRangeStatus(List dateList) async {
+    bool timeRangeIsActive = false;
+
+    for(int monthCounter = 0; monthCounter <= dateList.length - 1; monthCounter++){
+      for(int dayCounter = 0; dayCounter <= dateList[dayCounter].length - 1; dayCounter++){
+        if(boxTR.get(dateList[monthCounter][dayCounter].activeDayKey) != null){
+
+          if(boxTR.get(dateList[monthCounter][dayCounter].activeDayKey == "end") || isCurrentDay(dateList[monthCounter][dayCounter])){
+            dateList[monthCounter][dayCounter].inTimeRange = true;
+            timeRangeIsActive = false;
+          }
+
+          if(boxTR.get(dateList[monthCounter][dayCounter].activeDayKey == "first") || timeRangeIsActive == true){
+            timeRangeIsActive = true;
+            dateList[monthCounter][dayCounter].inTimeRange = true;
+          }
+        }
+      }
+    }
+    setState(() {});
   }
 
   @override

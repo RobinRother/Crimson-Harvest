@@ -10,6 +10,7 @@ class DayGrid extends StatelessWidget{
   final bool isGapDay;
   late OverlayEntry overlayEntry;
 
+  // exists in month_list: fix it
   bool isCurrentDay(){    // function or variable
     DateTime currentDay = DateTime.now();
     if(currentDay.year == activeDayObject.year && currentDay.month == activeDayObject.monthNum && currentDay.day == activeDayObject.day){
