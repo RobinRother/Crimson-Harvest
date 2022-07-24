@@ -113,14 +113,13 @@ class DateListProvider with ChangeNotifier{
         if(boxTR.get(dateList[monthCounter][dayCounter].activeDayKey) != null){
           role = boxTR.get(dateList[monthCounter][dayCounter].activeDayKey);
         }
-        
         // more important: start at today should go only til today!
         // why is current day not included?
+        
+
+        
         if(role == "last" || isCurrentDay(dateList[monthCounter][dayCounter])){
           dateList[monthCounter][dayCounter].inTimeRange = true;
-          print("check: ${DateTime.now()}");
-          //print(dateList[monthCounter][dayCounter].day);
-          //print(dateList[monthCounter][dayCounter].inTimeRange);
           timeRangeIsActive = false;
         }
 
@@ -129,7 +128,7 @@ class DateListProvider with ChangeNotifier{
           dateList[monthCounter][dayCounter].inTimeRange = true;
         }
         
-        if(role == "" && !timeRangeIsActive){
+        if(role == "" && !timeRangeIsActive && !isCurrentDay(dateList[monthCounter][dayCounter])){
           dateList[monthCounter][dayCounter].inTimeRange = false;
         }
       }
