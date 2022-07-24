@@ -27,13 +27,19 @@ class DayGrid extends StatelessWidget{
     if(isGapDay){
       return Colors.white;
     }
+    else if(activeDayObject.inTimeRange && isCurrentDay()){
+      return Colors.cyan;
+    }
     else if(activeDayObjectIsSelected){
       return Colors.deepOrange;
     }
-    else if(activeDayObject.inTimeRange){
+    else if(activeDayObject.inTimeRange && !isCurrentDay()){
       return Colors.teal;
     }
-    else if(isCurrentDay()){
+    
+    else if(isCurrentDay() && !activeDayObject.inTimeRange){
+      print("colour: ${DateTime.now()}");
+      print(activeDayObject.inTimeRange);
       return Colors.pink;
     }
     else{

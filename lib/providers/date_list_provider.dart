@@ -23,6 +23,17 @@ class DateListProvider with ChangeNotifier{
     }
     return false;
   }
+/*
+  bool isTomorrow(Day day){
+    DateTime tomorrow = DateTime.now().add(const Duration(days: 1));
+    DateTime activeDay = DateTime.utc(day.year, day.monthNum, day.day);
+
+    if(tomorrow == activeDay){
+      return true;
+    }
+    return false;
+  }
+*/
 
   List calcDates(){
     DateTime calendarStart = DateTime.utc(2020, 1, 1);
@@ -103,10 +114,14 @@ class DateListProvider with ChangeNotifier{
           role = boxTR.get(dateList[monthCounter][dayCounter].activeDayKey);
         }
         
+        // more important: start at today should go only til today!
+        // why is current day not included?
         if(role == "last" || isCurrentDay(dateList[monthCounter][dayCounter])){
           dateList[monthCounter][dayCounter].inTimeRange = true;
+          print("check: ${DateTime.now()}");
+          //print(dateList[monthCounter][dayCounter].day);
+          //print(dateList[monthCounter][dayCounter].inTimeRange);
           timeRangeIsActive = false;
-
         }
 
         if(role == "first" || timeRangeIsActive == true){

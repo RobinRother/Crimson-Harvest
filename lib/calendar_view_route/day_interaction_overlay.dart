@@ -57,13 +57,8 @@ class DayInteractionOverlay extends StatelessWidget {
       boxTR.put(day.activeDayKey, "last");
       context.read<DateListProvider>().deleteOldLast(day);
     }
-
     context.read<DateListProvider>().saveTimeRangeStatus();
   }
-    //doesnt work when:
-    // first setting end somewhere in tr
-    // when deleting first element:
-    // end element stays
 
   @override
   Widget build(BuildContext context) {
