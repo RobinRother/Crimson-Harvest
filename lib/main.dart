@@ -1,4 +1,5 @@
 import 'package:crimson_harvest/calendar_view_route/day_interaction_overlay.dart';
+import 'package:crimson_harvest/providers/date_list_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:crimson_harvest/calendar_view_route/calendar_view.dart';
 import 'package:crimson_harvest/detail_view_route/detail_view.dart';
@@ -27,6 +28,7 @@ void main() async {
       providers: [
         ChangeNotifierProvider(create: (context) => SelectedDayProvider(Day(date: DateTime.utc(1980)))),
         ChangeNotifierProvider(create: (_) => CurrentMonthProvider()),
+        ChangeNotifierProvider(create: (_) => DateListProvider()),
       ],
       child: MaterialApp(
         initialRoute: '/',

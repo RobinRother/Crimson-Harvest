@@ -1,28 +1,20 @@
+import 'package:crimson_harvest/providers/date_list_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:crimson_harvest/non_widget/day.dart';
+import 'package:provider/provider.dart';
 
-class DayInteractionOverlay extends StatefulWidget {
+class DayInteractionOverlay extends StatelessWidget {
   static const String routeDetailView = "/detail_view";
   OverlayEntry overlayEntry;
-  Day day;
   late Box boxTR;
-  void openBoxTR() async {
-    boxTR = await Hive.openBox('boxTR');
-  }
+  Day day;
 
   DayInteractionOverlay({required this.overlayEntry, required this.day}){
     openBoxTR();
   }
-
-  @override
-  State<DayInteractionOverlay> createState() => _DayInteractionOverlayState();
-}
-
-class _DayInteractionOverlayState extends State<DayInteractionOverlay> {
-
 
   Size _calculateButtonSize(BuildContext context){
     double screenHeight = MediaQuery.of(context).size.height;
@@ -40,34 +32,29 @@ class _DayInteractionOverlayState extends State<DayInteractionOverlay> {
   }
 
   String _getTimeRangeButtonValue(BuildContext context){
-    if(widget.day.inTimeRange){
+    if(day.inTimeRange){
       return AppLocalizations.of(context)?.end ?? "";
     }
     return AppLocalizations.of(context)?.start ?? "";
   }
 
-
-
-  Future<void> startTimeRange() async {
-    widget.boxTR.put(widget.day.activeDayKey, "first");
-    print('shithead');
-    setState(() {
-      
-    });
+  void openBoxTR() async {
+    boxTR = await Hive.openBox('boxTR');
   }
 
-  Future<void> stopTimeRange() async {
-    if(widget.boxTR.get(widget.day.activeDayKey) == "first"){
-      print('before');
-      widget.boxTR.delete(widget.day.activeDayKey);
-      print('after');
+  Future<void> startTimeRange(BuildContext context) async {
+    boxTR.put(day.activeDayKey, "first");
+    context.read<DateListProvider>().saveTimeRangeStatus();
+  }
+
+  Future<void> stopTimeRange(BuildContext context) async {
+    if(boxTR.get(day.activeDayKey) == "first"){
+      boxTR.delete(day.activeDayKey);
     }
     else{
-      widget.boxTR.put(widget.day.activeDayKey, "last");
+      boxTR.put(day.activeDayKey, "last");
     }
-    setState(() {
-      
-    });
+    context.read<DateListProvider>().saveTimeRangeStatus();
   }
 
   @override
@@ -80,11 +67,11 @@ class _DayInteractionOverlayState extends State<DayInteractionOverlay> {
           ElevatedButton(
             child: Text(_getTimeRangeButtonValue(context)),
             onPressed: () async {
-              if(widget.day.inTimeRange){
-                await stopTimeRange();
+              if(day.inTimeRange){
+                await stopTimeRange(context);
               }
               else{
-                await startTimeRange();
+                await startTimeRange(context);
               }
             }, 
             style: ElevatedButton.styleFrom(
@@ -96,10 +83,10 @@ class _DayInteractionOverlayState extends State<DayInteractionOverlay> {
             // size of icon
             child: Icon(Icons.edit_note_outlined),
             onPressed: () {
-              widget.overlayEntry.remove();
+              overlayEntry.remove();
               Navigator.pushNamed(
                 context, 
-                DayInteractionOverlay.routeDetailView,
+                routeDetailView,
               );
             }, 
             style: ElevatedButton.styleFrom(
