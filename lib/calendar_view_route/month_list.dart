@@ -32,7 +32,6 @@ class _MonthListState extends State<MonthList> {
   void initState() {
     super.initState();
     SchedulerBinding.instance.addPostFrameCallback((_) => context.read<CurrentMonthProvider>().scrollToCurrentMonth());
-    
   }
 
   void createBoxTR() async {

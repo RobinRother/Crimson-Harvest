@@ -9,14 +9,12 @@ class DateListProvider with ChangeNotifier{
 
   DateListProvider() {
     openBoxTR();
-    saveTimeRangeStatus();
+    //saveTimeRangeStatus();
   }
 
   void openBoxTR() async {
     boxTR = await Hive.openBox('boxTR');
   }
-
-  
   
   bool isCurrentDay(Day activeDayObject){    // function or variable
     DateTime currentDay = DateTime.now();
@@ -82,6 +80,7 @@ class DateListProvider with ChangeNotifier{
     print("index of selected: ");
     print(index);
     index++;
+
     while(index < boxTR.length && boxTR.getAt(index) != "first" && boxTR.getAt(index) != today){
       if(boxTR.getAt(index) == "last"){
         print('there was something to delete');

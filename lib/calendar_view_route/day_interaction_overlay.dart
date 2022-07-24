@@ -42,6 +42,7 @@ class DayInteractionOverlay extends StatelessWidget {
     boxTR = await Hive.openBox('boxTR');
   }
 
+  // abfangen von nach current day?
   Future<void> startTimeRange(BuildContext context) async {
     boxTR.put(day.activeDayKey, "first");
     context.read<DateListProvider>().saveTimeRangeStatus();
@@ -49,21 +50,20 @@ class DayInteractionOverlay extends StatelessWidget {
 
   Future<void> stopTimeRange(BuildContext context) async {
     if(boxTR.get(day.activeDayKey) == "first"){
+      context.read<DateListProvider>().deleteOldLast(day);
       boxTR.delete(day.activeDayKey);
     }
     else{
       boxTR.put(day.activeDayKey, "last");
+      context.read<DateListProvider>().deleteOldLast(day);
     }
 
-    context.read<DateListProvider>().deleteOldLast(day);
     context.read<DateListProvider>().saveTimeRangeStatus();
   }
-
-
-  // ab last:
-  // iteriere bis zu current day oder first
-  // wenn last erneut, dann delete und ende
-  // keine editierung in liste vonnöten -> nur box bearbeiten!
+    //doesnt work when:
+    // first setting end somewhere in tr
+    // when deleting first element:
+    // end element stays
 
   @override
   Widget build(BuildContext context) {
