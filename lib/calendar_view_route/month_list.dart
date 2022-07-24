@@ -18,6 +18,10 @@ class _MonthListState extends State<MonthList> {
   late Box boxTR;
   late List dateList;
 
+  _MonthListState() {
+    createBoxTR(); 
+  }
+
   @override
   void dispose() {
     boxTR.close();   //box
@@ -29,7 +33,7 @@ class _MonthListState extends State<MonthList> {
     super.initState();
     SchedulerBinding.instance.addPostFrameCallback((_) => context.read<CurrentMonthProvider>().scrollToCurrentMonth());
     dateList = calcDates();
-    createBoxTR();
+
   }
 
   void createBoxTR() async {
@@ -45,19 +49,6 @@ class _MonthListState extends State<MonthList> {
     return false;
   }
 
-  Future<void> useTRBox() async {
-    boxTR.put("first", "i am lost. help");
-    if(boxTR.get("first") != null){
-      print(boxTR.get("first"));
-    }
-    else{
-      print('probably worked');
-    }
-    setState(() {
-      
-    });
-  }
-
   Future<void> saveTimeRangeStatus(List dateList) async {
     bool timeRangeIsActive = false;
     String role = "";
@@ -70,14 +61,20 @@ class _MonthListState extends State<MonthList> {
         else{
           continue;
         }
-        if(role == "end" || isCurrentDay(dateList[monthCounter][dayCounter])){
+        if(role == "last" || isCurrentDay(dateList[monthCounter][dayCounter])){
           dateList[monthCounter][dayCounter].inTimeRange = true;
+          print("_________________________________________________");
+          print(dateList[monthCounter][dayCounter].day);
+          print(dateList[monthCounter][dayCounter].monthNum);
           timeRangeIsActive = false;
         }
 
         if(role == "first" || timeRangeIsActive == true){
           timeRangeIsActive = true;
           dateList[monthCounter][dayCounter].inTimeRange = true;
+          print("_________________________________________________");
+          print(dateList[monthCounter][dayCounter].day);
+          print(dateList[monthCounter][dayCounter].monthNum);
         }
       }
     }

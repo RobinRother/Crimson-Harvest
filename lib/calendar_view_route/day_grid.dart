@@ -30,6 +30,9 @@ class DayGrid extends StatelessWidget{
     else if(activeDayObjectIsSelected){
       return Colors.deepOrange;
     }
+    else if(activeDayObject.inTimeRange){
+      return Colors.teal;
+    }
     else if(isCurrentDay()){
       return Colors.pink;
     }
@@ -50,7 +53,7 @@ class DayGrid extends StatelessWidget{
                 context.read<SelectedDayProvider>().removeSelection();
               },
             ),
-            DayInteractionOverlay(overlayEntry: overlayEntry),
+            DayInteractionOverlay(overlayEntry: overlayEntry, day: activeDayObject),
           ],
         );
       },
