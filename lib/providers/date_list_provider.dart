@@ -65,26 +65,58 @@ class DateListProvider with ChangeNotifier{
     return calculatedDateList;
   }
 
+  void deleteOldLast(Day day){
+    String today = DateTime.now().toString();
+    int index = 0;
+
+    if(!boxTR.containsKey(day.activeDayKey)){
+      print('but it should exist?');
+      return;
+    }
+
+    // get index for key
+    while(boxTR.keyAt(index) != day.activeDayKey) {
+      index++;
+    }
+
+    print("index of selected: ");
+    print(index);
+    index++;
+    while(index < boxTR.length && boxTR.getAt(index) != "first" && boxTR.getAt(index) != today){
+      if(boxTR.getAt(index) == "last"){
+        print('there was something to delete');
+        print(index);
+        boxTR.deleteAt(index);
+        return;
+      }
+      index++;
+    }
+  }
+
   Future<void> saveTimeRangeStatus() async {
     bool timeRangeIsActive = false;
     String role = "";
 
     for(int monthCounter = 0; monthCounter < dateList.length; monthCounter++){
       for(int dayCounter = 0; dayCounter < dateList[monthCounter].length; dayCounter++){
+        role = "";
         if(boxTR.get(dateList[monthCounter][dayCounter].activeDayKey) != null){
           role = boxTR.get(dateList[monthCounter][dayCounter].activeDayKey);
         }
-        else{
-          role = "";
-        }
+        
         if(role == "last" || isCurrentDay(dateList[monthCounter][dayCounter])){
           dateList[monthCounter][dayCounter].inTimeRange = true;
           timeRangeIsActive = false;
+
         }
 
         if(role == "first" || timeRangeIsActive == true){
           timeRangeIsActive = true;
           dateList[monthCounter][dayCounter].inTimeRange = true;
+        }
+        
+        if(role == "" && !timeRangeIsActive){
+          dateList[monthCounter][dayCounter].inTimeRange = false;
         }
       }
     }

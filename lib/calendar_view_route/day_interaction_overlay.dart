@@ -54,8 +54,16 @@ class DayInteractionOverlay extends StatelessWidget {
     else{
       boxTR.put(day.activeDayKey, "last");
     }
+
+    context.read<DateListProvider>().deleteOldLast(day);
     context.read<DateListProvider>().saveTimeRangeStatus();
   }
+
+
+  // ab last:
+  // iteriere bis zu current day oder first
+  // wenn last erneut, dann delete und ende
+  // keine editierung in liste vonnöten -> nur box bearbeiten!
 
   @override
   Widget build(BuildContext context) {
