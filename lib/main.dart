@@ -15,11 +15,11 @@ import 'package:hive_flutter/hive_flutter.dart';
 
 // TODOS
 // change language in app -> currently read from system
-// deselection by clicking outside of widget
 // nicer styling (borders, ...)
 // read preferences from file (no hardcoding anymore)
 // update today when day changes?
 // ausgrauen der start box in future
+// hide loading behind splash screen
 
 void main() async {
   await Hive.initFlutter();

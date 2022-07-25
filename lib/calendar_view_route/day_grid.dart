@@ -38,8 +38,6 @@ class DayGrid extends StatelessWidget{
     }
     
     else if(isCurrentDay() && !activeDayObject.inTimeRange){
-      print("colour: ${DateTime.now()}");
-      print(activeDayObject.inTimeRange);
       return Colors.pink;
     }
     else{

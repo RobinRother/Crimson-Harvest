@@ -4,15 +4,20 @@ import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
 class DateListProvider with ChangeNotifier{
-  late List dateList = calcDates();
   late Box boxTR;
+  late List dateList;
 
   DateListProvider() {
-    openBoxTR();
-    //saveTimeRangeStatus();
+    dateList = calcDates();
+    prepData();
   }
 
-  void openBoxTR() async {
+  void prepData() async {
+    await openBoxTR();
+    await saveTimeRangeStatus();
+  }
+
+  Future<void> openBoxTR() async {
     boxTR = await Hive.openBox('boxTR');
   }
   
@@ -23,19 +28,8 @@ class DateListProvider with ChangeNotifier{
     }
     return false;
   }
-/*
-  bool isTomorrow(Day day){
-    DateTime tomorrow = DateTime.now().add(const Duration(days: 1));
-    DateTime activeDay = DateTime.utc(day.year, day.monthNum, day.day);
 
-    if(tomorrow == activeDay){
-      return true;
-    }
-    return false;
-  }
-*/
-
-  List calcDates(){
+  List calcDates() {
     DateTime calendarStart = DateTime.utc(2020, 1, 1);
     DateTime calendarEnd = DateTime.utc(2028, 1, 1);
     List<List> calculatedDateList = [];
@@ -70,7 +64,6 @@ class DateListProvider with ChangeNotifier{
       calculatedDateList[monthIndex].add(Day(date: dayIterator));
       dayIterator = dayIterator.add(const Duration(days: 1));
     }
-    
     return calculatedDateList;
   }
 
@@ -79,7 +72,6 @@ class DateListProvider with ChangeNotifier{
     int index = 0;
 
     if(!boxTR.containsKey(day.activeDayKey)){
-      print('but it should exist?');
       return;
     }
 
@@ -87,15 +79,10 @@ class DateListProvider with ChangeNotifier{
     while(boxTR.keyAt(index) != day.activeDayKey) {
       index++;
     }
-
-    print("index of selected: ");
-    print(index);
     index++;
 
     while(index < boxTR.length && boxTR.getAt(index) != "first" && boxTR.getAt(index) != today){
       if(boxTR.getAt(index) == "last"){
-        print('there was something to delete');
-        print(index);
         boxTR.deleteAt(index);
         return;
       }
