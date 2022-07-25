@@ -5,6 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:crimson_harvest/non_widget/day.dart';
 
 class DetailView extends StatelessWidget{
+  static const String routeWebView = "";
+  
   @override
   Widget build(BuildContext context) {
     final Day date = context.watch<SelectedDayProvider>().selectedDay;
@@ -16,10 +18,6 @@ class DetailView extends StatelessWidget{
         appBar: AppBar(
           title: Text('${date.day}. ${date.mapMonthName(context)} ${date.year}'),
           actions: [
-            IconButton(
-              onPressed: null, 
-              icon: Image.asset("figures/GitHub-Mark-Light-32px.png"),
-            ),
             IconButton(
               onPressed: null,
               icon: Icon(Icons.menu_outlined),
