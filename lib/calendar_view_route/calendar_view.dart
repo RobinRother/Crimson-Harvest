@@ -16,6 +16,10 @@ class CalendarView extends StatelessWidget {
             icon: const Icon(Icons.calendar_today_outlined),
           ),
           IconButton(
+            onPressed: null, 
+            icon: Image.asset("figures/GitHub-Mark-Light-32px.png"),
+          ),
+          IconButton(
             onPressed: null,
             icon: Icon(Icons.menu_outlined),
           ),

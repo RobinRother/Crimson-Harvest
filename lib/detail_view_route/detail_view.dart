@@ -15,7 +15,11 @@ class DetailView extends StatelessWidget{
         // appbar als festes widget auslagern?
         appBar: AppBar(
           title: Text('${date.day}. ${date.mapMonthName(context)} ${date.year}'),
-          actions: const [
+          actions: [
+            IconButton(
+              onPressed: null, 
+              icon: Image.asset("figures/GitHub-Mark-Light-32px.png"),
+            ),
             IconButton(
               onPressed: null,
               icon: Icon(Icons.menu_outlined),
