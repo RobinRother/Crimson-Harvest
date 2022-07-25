@@ -3,7 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:crimson_harvest/providers/current_month_provider.dart';
 import 'package:provider/provider.dart';
 
+
 class CalendarView extends StatelessWidget {
+  static const String routeWebView = "";
+  
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -14,6 +17,15 @@ class CalendarView extends StatelessWidget {
           IconButton(
             onPressed: () => context.read<CurrentMonthProvider>().scrollToCurrentMonth(),
             icon: const Icon(Icons.calendar_today_outlined),
+          ),
+          IconButton(
+            icon: Image.asset("figures/GitHub-Mark-Light-32px.png"),
+            onPressed: (() {
+              Navigator.pushNamed(
+                context, 
+                routeWebView,
+              );
+            }),
           ),
           IconButton(
             onPressed: null,

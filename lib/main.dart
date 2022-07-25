@@ -1,4 +1,5 @@
 import 'package:crimson_harvest/calendar_view_route/day_interaction_overlay.dart';
+import 'package:crimson_harvest/calendar_view_route/web_view_container.dart';
 import 'package:crimson_harvest/providers/date_list_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:crimson_harvest/calendar_view_route/calendar_view.dart';
@@ -20,6 +21,8 @@ import 'package:hive_flutter/hive_flutter.dart';
 // update today when day changes?
 // ausgrauen der start box in future
 // hide loading behind splash screen
+// move github link into sidebar
+// add settings to sidebar
 
 void main() async {
   await Hive.initFlutter();
@@ -36,6 +39,7 @@ void main() async {
         routes: {
           '/': (context) => CalendarView(),
           DayInteractionOverlay.routeDetailView: (context) => DetailView(),
+          CalendarView.routeWebView: (context) => WebViewContainer(),
         },
         supportedLocales: L10n.all,
         localizationsDelegates: const [
