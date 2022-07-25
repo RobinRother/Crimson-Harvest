@@ -28,17 +28,6 @@ class DateListProvider with ChangeNotifier{
     }
     return false;
   }
-/*
-  bool isTomorrow(Day day){
-    DateTime tomorrow = DateTime.now().add(const Duration(days: 1));
-    DateTime activeDay = DateTime.utc(day.year, day.monthNum, day.day);
-
-    if(tomorrow == activeDay){
-      return true;
-    }
-    return false;
-  }
-*/
 
   List calcDates() {
     DateTime calendarStart = DateTime.utc(2020, 1, 1);
