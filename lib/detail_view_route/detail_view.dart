@@ -14,7 +14,7 @@ class DetailView extends StatelessWidget{
       child: Scaffold(
         // appbar als festes widget auslagern?
         appBar: AppBar(
-          title: Text('${date.day}. ${date.monthName} ${date.year}'),
+          title: Text('${date.day}. ${date.mapMonthName(context)} ${date.year}'),
           actions: const [
             IconButton(
               onPressed: null,

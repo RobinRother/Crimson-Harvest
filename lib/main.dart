@@ -1,4 +1,5 @@
 import 'package:crimson_harvest/calendar_view_route/day_interaction_overlay.dart';
+import 'package:crimson_harvest/providers/date_list_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:crimson_harvest/calendar_view_route/calendar_view.dart';
 import 'package:crimson_harvest/detail_view_route/detail_view.dart';
@@ -18,6 +19,7 @@ import 'package:hive_flutter/hive_flutter.dart';
 // nicer styling (borders, ...)
 // read preferences from file (no hardcoding anymore)
 // update today when day changes?
+// ausgrauen der start box in future
 
 void main() async {
   await Hive.initFlutter();
@@ -25,8 +27,9 @@ void main() async {
   runApp(
     MultiProvider(
       providers: [
-        ChangeNotifierProvider(create: (context) => SelectedDayProvider(Day(date: DateTime.utc(1980), context: context))),
+        ChangeNotifierProvider(create: (context) => SelectedDayProvider(Day(date: DateTime.utc(1980)))),
         ChangeNotifierProvider(create: (_) => CurrentMonthProvider()),
+        ChangeNotifierProvider(create: (_) => DateListProvider()),
       ],
       child: MaterialApp(
         initialRoute: '/',

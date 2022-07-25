@@ -3,24 +3,21 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 class Day {
   int _day = 0;
   late int _monthNum;
-  late String _monthName;
   late int _year;
   String _activeDayKey = '';
-  //timerange stuff
+  bool _inTimeRange = false;
 
-  Day({required date, required context}){
+  Day({required date}){
     _day = date.day;
     _monthNum = date.month;
-    _monthName = mapMonthName(context);
     _year = date.year;
     _activeDayKey = date.toString();
   }
 
   // to create Day with an invalid day value as gap day
   // month and year are still accurate to create gridviewheading
-  Day.placeholder({required date, required context}){
+  Day.placeholder({required date}){
     _monthNum = date.month;
-    _monthName = mapMonthName(context);
     _year = date.year;
   }
 
@@ -47,9 +44,10 @@ class Day {
 
   int get monthNum => _monthNum;
 
-  String get monthName =>_monthName;
-
   int get year => _year;
 
   String get activeDayKey => _activeDayKey;
+
+  bool get inTimeRange => _inTimeRange;
+  set inTimeRange(value) => _inTimeRange = value;
 }
