@@ -7,13 +7,13 @@ class WeekdayRow extends StatelessWidget{
   @override
   Widget build(BuildContext context) {
     List<String> weekdays = [
-      AppLocalizations.of(context)?.rowMonday ?? "",
-      AppLocalizations.of(context)?.rowTuesday ?? "",
-      AppLocalizations.of(context)?.rowWednesday ?? "",
-      AppLocalizations.of(context)?.rowThursday ?? "",
-      AppLocalizations.of(context)?.rowFriday ?? "",
-      AppLocalizations.of(context)?.rowSaturday ?? "",
-      AppLocalizations.of(context)?.rowSunday ?? "",
+      AppLocalizations.of(context)?.rowMonday ?? "mo",
+      AppLocalizations.of(context)?.rowTuesday ?? "tu",
+      AppLocalizations.of(context)?.rowWednesday ?? "we",
+      AppLocalizations.of(context)?.rowThursday ?? "th",
+      AppLocalizations.of(context)?.rowFriday ?? "fr",
+      AppLocalizations.of(context)?.rowSaturday ?? "sa",
+      AppLocalizations.of(context)?.rowSunday ?? "su",
     ];
 
     return GridView.builder(

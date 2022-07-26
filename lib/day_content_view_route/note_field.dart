@@ -26,22 +26,18 @@ class _NoteFieldState extends State<NoteField> {
   void initState() {
     super.initState();
     textController.addListener((){});
-    createOpenBox();      //box
+    createOpenBox();
   }
 
-  //box
   void createOpenBox() async {
     notesBox = await Hive.openBox('notesBox');
     getNotes();
   }
 
-  //box
-  // per provider? or box class?
   void saveNotes() {
     notesBox.put(widget.activeDayKey, textController.value.text);
   }
 
-  //box
   void getNotes(){
     if(notesBox.get(widget.activeDayKey) != null){
       textController.text = notesBox.get(widget.activeDayKey);

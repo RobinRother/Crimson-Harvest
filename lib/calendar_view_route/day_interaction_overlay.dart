@@ -8,7 +8,7 @@ import 'package:crimson_harvest/providers/date_list_provider.dart';
 import 'package:crimson_harvest/non_widget/day.dart';
 
 class DayInteractionOverlay extends StatelessWidget {
-  static const String routeDetailView = "/detail_view";
+  static const String routeDayContentView = "/day_content_view";
   final OverlayEntry overlayEntry;
   late final Box boxTR;
   final Day day;
@@ -49,7 +49,7 @@ class DayInteractionOverlay extends StatelessWidget {
               overlayEntry.remove();
               Navigator.pushNamed(
                 context, 
-                routeDetailView,
+                routeDayContentView,
               );
             }, 
             style: ElevatedButton.styleFrom(

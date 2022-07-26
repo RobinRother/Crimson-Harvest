@@ -11,7 +11,7 @@ import 'package:crimson_harvest/l10n/l10n.dart';
 import 'package:crimson_harvest/non_widget/day.dart';
 import 'package:crimson_harvest/calendar_view_route/day_interaction_overlay.dart';
 import 'package:crimson_harvest/calendar_view_route/calendar_view.dart';
-import 'package:crimson_harvest/detail_view_route/detail_view.dart';
+import 'package:crimson_harvest/day_content_view_route/day_content_view.dart';
 import 'package:crimson_harvest/calendar_view_route/web_view_container.dart';
 
 // TODOS
@@ -39,7 +39,7 @@ void main() async {
         initialRoute: '/',
         routes: {
           '/': (context) => const CalendarView(),
-          DayInteractionOverlay.routeDetailView: (context) => const DetailView(),
+          DayInteractionOverlay.routeDayContentView: (context) => const DayContentView(),
           CalendarView.routeWebView: (context) => const WebViewContainer(),
         },
         supportedLocales: L10n.all,
