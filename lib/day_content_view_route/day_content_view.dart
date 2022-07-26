@@ -15,8 +15,9 @@ class DayContentView extends StatelessWidget{
     return GestureDetector(
       onTap: () => FocusScope.of(context).unfocus(),
       child: Scaffold(
-        // appbar als festes widget auslagern?
+        backgroundColor: Colors.lime.shade200,
         appBar: AppBar(
+          backgroundColor: const Color.fromARGB(255, 160, 120, 90),
           title: Text('${day.day}. ${day.mapMonthName(context)} ${day.year}'),
           actions: const [
             IconButton(

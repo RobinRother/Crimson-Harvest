@@ -50,7 +50,7 @@ class _NoteFieldState extends State<NoteField> {
     return Card(
       // enough space to unfocus at bottom
       margin: const EdgeInsets.fromLTRB(64, 64, 64, 128),
-      color: Colors.orange,
+      color: const Color.fromARGB(255, 255, 253, 237),
       borderOnForeground: true,
       shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.all(Radius.circular(40)),

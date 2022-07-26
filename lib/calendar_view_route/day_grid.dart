@@ -6,12 +6,12 @@ import 'package:crimson_harvest/providers/date_list_provider.dart';
 import 'package:crimson_harvest/non_widget/day.dart';
 import 'package:crimson_harvest/calendar_view_route/day_interaction_overlay.dart';
 
+// ignore: must_be_immutable
 class DayGrid extends StatelessWidget{
-  // ignore: prefer_const_constructors_in_immutables
   DayGrid({Key? key, required this.activeDayObject, required this.isGapDay}) : super(key: key);
   final Day activeDayObject;
   final bool isGapDay;
-  late final OverlayEntry overlayEntry;
+  late OverlayEntry overlayEntry;
 
   @override
   build(BuildContext context){
@@ -23,36 +23,46 @@ class DayGrid extends StatelessWidget{
         }
       },
       child: Container(
-        color: chooseColor(context),
-        child: isGapDay ? const Text('') : Text(activeDayObject.day.toString()),
+        child: isGapDay ? const Text('') : Padding(
+          padding: const EdgeInsets.all(3),
+          child: Text(activeDayObject.day.toString())
+        ),
+        decoration: BoxDecoration(
+          color: chooseColor(context),
+          borderRadius: BorderRadius.circular(7),
+          border: Border.all(
+            color: chooseBorderColor(context), 
+            width: 3,
+          ),
+        ),
       ),
     );
   }
 
-  Color chooseColor(BuildContext context){
-    bool activeDayObjectIsSelected = context.watch<SelectedDayProvider>().isSelected && context.watch<SelectedDayProvider>().selectedDay == activeDayObject;
+  Color chooseBorderColor(BuildContext context){
     bool today = context.watch<DateListProvider>().isCurrentDay(activeDayObject);
 
-    // @TODO later add current day selection
-    // @TODO code colours in settings
-    if(isGapDay){
-      return Colors.white;
+    if(today){
+      return Colors.redAccent;
     }
-    else if(activeDayObject.inTimeRange && today){
-      return Colors.cyan;
+    return chooseColor(context);
+  }
+
+
+  Color chooseColor(BuildContext context){
+    bool activeDayObjectIsSelected = context.watch<SelectedDayProvider>().isSelected && context.watch<SelectedDayProvider>().selectedDay == activeDayObject;
+
+    if(isGapDay){
+      return const Color.fromARGB(255, 255, 253, 237);
     }
     else if(activeDayObjectIsSelected){
-      return Colors.deepOrange;
+      return Colors.amber.shade100;
     }
-    else if(activeDayObject.inTimeRange && !today){
-      return Colors.teal;
-    }
-    
-    else if(today && !activeDayObject.inTimeRange){
-      return Colors.pink;
+    else if(activeDayObject.inTimeRange){
+      return Colors.amber.shade700;
     }
     else{
-      return Colors.amber;
+      return Colors.amber.shade300;
     }
   }
 

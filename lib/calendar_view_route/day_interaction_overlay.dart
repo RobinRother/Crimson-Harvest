@@ -40,6 +40,7 @@ class DayInteractionOverlay extends StatelessWidget {
             }, 
             style: ElevatedButton.styleFrom(
               fixedSize: buttonSize,
+              primary: const Color.fromARGB(255, 160, 120, 90),
             ),
           ),
           ElevatedButton(
@@ -54,6 +55,7 @@ class DayInteractionOverlay extends StatelessWidget {
             }, 
             style: ElevatedButton.styleFrom(
               fixedSize: buttonSize,
+              primary: const Color.fromARGB(255, 160, 120, 90),
             ),
           ),
         ],

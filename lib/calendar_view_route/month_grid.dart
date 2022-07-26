@@ -11,22 +11,42 @@ class MonthGrid extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
+      crossAxisAlignment: CrossAxisAlignment.end,
       children: [
-        Text('$month  -  $year'),
-        GridView.builder(
-          physics: const NeverScrollableScrollPhysics(),
-          shrinkWrap: true,
-          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(    // read from settings?
-            crossAxisCount: 7,
-            childAspectRatio: 0.8,
+        Padding(
+          padding: const EdgeInsets.only(right: 12.0),
+          child: Text(
+            '$month  -  $year',
+            style: const TextStyle(
+              fontFamily: 'peels',
+              fontSize: 28,
+            ),
           ),
-          itemCount: dates.length,
-          itemBuilder: (context, index) {
-            return DayGrid(
-              activeDayObject: dates[index],
-              isGapDay: _isGapDay(dates[index].day),
-            );
-          },
+        ),
+        Container(
+          padding: const EdgeInsets.all(16.0),
+          margin: const EdgeInsets.fromLTRB(20, 20, 20, 40),
+          decoration: BoxDecoration(
+            color: const Color.fromARGB(255, 255, 253, 237),
+            borderRadius: BorderRadius.circular(20),
+          ),
+          child: GridView.builder(
+            physics: const NeverScrollableScrollPhysics(),
+            shrinkWrap: true,
+            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(    // read from settings?
+              crossAxisCount: 7,
+              childAspectRatio: 0.8,
+              crossAxisSpacing: 8.0,
+              mainAxisSpacing: 8.0,
+            ),
+            itemCount: dates.length,
+            itemBuilder: (context, index) {
+              return DayGrid(
+                activeDayObject: dates[index],
+                isGapDay: _isGapDay(dates[index].day),
+              );
+            },
+          ),
         ),
       ],
     );

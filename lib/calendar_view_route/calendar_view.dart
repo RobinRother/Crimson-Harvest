@@ -13,8 +13,9 @@ class CalendarView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // appbar als festes widget auslagern?
+      backgroundColor: Colors.lime.shade200,
       appBar: AppBar(
+        backgroundColor: const Color.fromARGB(255, 160, 120, 90),
         title: const Text('Crimson Harvest'),     // auslagern in config file?
         actions: [
           IconButton(
@@ -22,7 +23,7 @@ class CalendarView extends StatelessWidget {
             icon: const Icon(Icons.calendar_today_outlined),
           ),
           IconButton(
-            icon: Image.asset("figures/GitHub-Mark-Light-32px.png"),
+            icon: Image.asset("assets/GitHub-Mark-Light-32px.png"),
             onPressed: (() {
               Navigator.pushNamed(
                 context, 

@@ -25,6 +25,9 @@ import 'package:crimson_harvest/calendar_view_route/web_view_container.dart';
 // add settings to sidebar
 // themes?
 
+// calc to calculate!
+// '' und "" consistent!
+
 void main() async {
   await Hive.initFlutter();
 

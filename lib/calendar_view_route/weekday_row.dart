@@ -16,20 +16,29 @@ class WeekdayRow extends StatelessWidget{
       AppLocalizations.of(context)?.rowSunday ?? "su",
     ];
 
-    return GridView.builder(
-      physics: const NeverScrollableScrollPhysics(),
-      shrinkWrap: true,
-      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-        crossAxisCount: 7,
-        childAspectRatio: 1,
+    return Container(
+      //padding: const EdgeInsets.all(16.0),
+      padding: const EdgeInsets.fromLTRB(36, 0, 36, 0),
+      color: const Color.fromARGB(180, 190, 145, 111),
+      child: GridView.builder(
+        physics: const NeverScrollableScrollPhysics(),
+        shrinkWrap: true,
+        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+          crossAxisCount: 7,
+          childAspectRatio: 1.3,
+          crossAxisSpacing: 8.0,
+          mainAxisSpacing: 8.0,
+        ),
+        itemCount: 7,
+        itemBuilder: (context, index){
+          return Center(
+            child: Text(
+              weekdays[index],
+              textScaleFactor: 1.2,
+            ),
+          );
+        },
       ),
-      itemCount: 7,
-      itemBuilder: (context, index){
-        return Container(
-          color: Colors.limeAccent,
-          child: Text(weekdays[index]),
-        );
-      },
     );
   }
 }
