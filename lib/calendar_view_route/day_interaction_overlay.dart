@@ -1,70 +1,31 @@
-import 'package:crimson_harvest/providers/date_list_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
-import 'package:crimson_harvest/non_widget/day.dart';
 import 'package:provider/provider.dart';
+
+import 'package:crimson_harvest/providers/date_list_provider.dart';
+import 'package:crimson_harvest/non_widget/day.dart';
 
 class DayInteractionOverlay extends StatelessWidget {
   static const String routeDetailView = "/detail_view";
-  OverlayEntry overlayEntry;
-  late Box boxTR;
-  Day day;
+  final OverlayEntry overlayEntry;
+  late final Box boxTR;
+  final Day day;
 
-  DayInteractionOverlay({required this.overlayEntry, required this.day}){
+  DayInteractionOverlay({Key? key, required this.overlayEntry, required this.day}) : super(key: key){
     openBoxTR();
-  }
-
-  Size _calculateButtonSize(BuildContext context){
-    double screenHeight = MediaQuery.of(context).size.height;
-    double screenWidth = MediaQuery.of(context).size.width;
-
-    return Size(screenWidth/4, screenHeight/10);
-  }
-
-  Offset _calculateButtonPosition(BuildContext context){
-    double screenHeight = MediaQuery.of(context).size.height;
-    double screenWidth = MediaQuery.of(context).size.width;
-    Size buttonSize = _calculateButtonSize(context);
-
-    return Offset(screenWidth - buttonSize.width, screenHeight - buttonSize.height * 2);
-  }
-
-  String _getTimeRangeButtonValue(BuildContext context){
-    if(day.inTimeRange){
-      return AppLocalizations.of(context)?.end ?? "";
-    }
-    return AppLocalizations.of(context)?.start ?? "";
-  }
-
-  void openBoxTR() async {
-    boxTR = await Hive.openBox('boxTR');
-  }
-
-  // abfangen von nach current day?
-  Future<void> startTimeRange(BuildContext context) async {
-    boxTR.put(day.activeDayKey, "first");
-    context.read<DateListProvider>().saveTimeRangeStatus();
-  }
-
-  Future<void> stopTimeRange(BuildContext context) async {
-    if(boxTR.get(day.activeDayKey) == "first"){
-      context.read<DateListProvider>().deleteOldLast(day);
-      boxTR.delete(day.activeDayKey);
-    }
-    else{
-      boxTR.put(day.activeDayKey, "last");
-      context.read<DateListProvider>().deleteOldLast(day);
-    }
-    context.read<DateListProvider>().saveTimeRangeStatus();
   }
 
   @override
   Widget build(BuildContext context) {
+    Size screen = _fetchScreenSize(context);
+    Size buttonSize = _calculateButtonSize(screen);
+    Offset buttonPosition = _calculateButtonPosition(screen, buttonSize);
+
     return Positioned(
-      left: _calculateButtonPosition(context).dx,
-      top: _calculateButtonPosition(context).dy,
+      left: buttonPosition.dx,
+      top: buttonPosition.dy,
       child: Column(
         children: [
           ElevatedButton(
@@ -78,13 +39,12 @@ class DayInteractionOverlay extends StatelessWidget {
               }
             }, 
             style: ElevatedButton.styleFrom(
-              fixedSize: _calculateButtonSize(context),
-              padding: EdgeInsets.all(24),
+              fixedSize: buttonSize,
             ),
           ),
           ElevatedButton(
             // size of icon
-            child: Icon(Icons.edit_note_outlined),
+            child: const Icon(Icons.edit_note_outlined),
             onPressed: () {
               overlayEntry.remove();
               Navigator.pushNamed(
@@ -93,11 +53,57 @@ class DayInteractionOverlay extends StatelessWidget {
               );
             }, 
             style: ElevatedButton.styleFrom(
-              fixedSize: _calculateButtonSize(context),
+              fixedSize: buttonSize,
             ),
           ),
         ],
       ),
     );
   }
+
+  Size _fetchScreenSize(BuildContext context){
+    return Size(MediaQuery.of(context).size.width, MediaQuery.of(context).size.height);
+  }
+
+  Size _calculateButtonSize(Size screen){
+    return Size(screen.width/4, screen.height/10);    
+    //factor in settings?
+  }
+
+  Offset _calculateButtonPosition(Size screen, Size buttonSize){
+    return Offset(screen.width - buttonSize.width, screen.height - buttonSize.height * 2);
+    //factor in settings?
+  }
+
+  String _getTimeRangeButtonValue(BuildContext context){
+    if(day.inTimeRange){
+      return AppLocalizations.of(context)?.end ?? "end";
+    }
+    return AppLocalizations.of(context)?.start ?? "start";
+  }
+
+  void openBoxTR() async {
+    boxTR = await Hive.openBox('boxTR');
+  }
+
+  Future<void> startTimeRange(BuildContext context) async {
+    boxTR.put(day.activeDayKey, "first");
+    context.read<DateListProvider>().saveTimeRangeStatus();
+    overlayEntry.remove();
+  }
+
+  Future<void> stopTimeRange(BuildContext context) async {
+    if(boxTR.get(day.activeDayKey) == "first"){
+      context.read<DateListProvider>().deleteOldLast(day);
+      boxTR.delete(day.activeDayKey);
+    }
+    else{
+      boxTR.put(day.activeDayKey, "last");
+      context.read<DateListProvider>().deleteOldLast(day);
+    }
+    context.read<DateListProvider>().saveTimeRangeStatus();
+    overlayEntry.remove();
+  }
+
+
 }

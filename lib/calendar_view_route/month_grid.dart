@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
-import 'day_grid.dart';
+
+import 'package:crimson_harvest/calendar_view_route/day_grid.dart';
 
 class MonthGrid extends StatelessWidget {
-  MonthGrid({required this.dates, required this.month, required this.year});
+  const MonthGrid({Key? key, required this.dates, required this.month, required this.year}) : super(key: key);
   final List dates;
   final String month;
   final String year;
-  bool focused = false;
 
   @override
   Widget build(BuildContext context) {
@@ -17,7 +17,7 @@ class MonthGrid extends StatelessWidget {
           physics: const NeverScrollableScrollPhysics(),
           shrinkWrap: true,
           scrollDirection: Axis.vertical,
-          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(    // read from settings?
             crossAxisCount: 7,
             childAspectRatio: 0.8,
           ),

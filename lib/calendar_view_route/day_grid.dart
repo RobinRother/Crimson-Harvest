@@ -1,43 +1,55 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import '../providers/selected_day_provider.dart';
-import '../non_widget/day.dart';
+
+import 'package:crimson_harvest/providers/selected_day_provider.dart';
+import 'package:crimson_harvest/providers/date_list_provider.dart';
+
+import 'package:crimson_harvest/non_widget/day.dart';
 import 'package:crimson_harvest/calendar_view_route/day_interaction_overlay.dart';
 
+// const vs final vs late: help
 class DayGrid extends StatelessWidget{
-  DayGrid({required Day this.activeDayObject, required this.isGapDay});
+  DayGrid({Key? key, required this.activeDayObject, required this.isGapDay}) : super(key: key);
   final Day activeDayObject;
   final bool isGapDay;
   late OverlayEntry overlayEntry;
 
-  // exists in month_list: fix it
-  bool isCurrentDay(){    // function or variable
-    DateTime currentDay = DateTime.now();
-    if(currentDay.year == activeDayObject.year && currentDay.month == activeDayObject.monthNum && currentDay.day == activeDayObject.day){
-      return true;
-    }
-    return false;
+  @override
+  build(BuildContext context){
+    return GestureDetector(
+      onTap: () {
+        context.read<SelectedDayProvider>().changeSelection(activeDayObject);
+        if(!isGapDay){
+          _showOverlay(context);
+        }
+      },
+      child: Container(
+        color: chooseColor(context),
+        child: isGapDay ? const Text('') : Text(activeDayObject.day.toString()),
+      ),
+    );
   }
 
   Color chooseColor(BuildContext context){
     bool activeDayObjectIsSelected = context.watch<SelectedDayProvider>().isSelected && context.watch<SelectedDayProvider>().selectedDay == activeDayObject;
+    bool today = context.watch<DateListProvider>().isCurrentDay(activeDayObject);
 
     // @TODO later add current day selection
     // @TODO code colours in settings
     if(isGapDay){
       return Colors.white;
     }
-    else if(activeDayObject.inTimeRange && isCurrentDay()){
+    else if(activeDayObject.inTimeRange && today){
       return Colors.cyan;
     }
     else if(activeDayObjectIsSelected){
       return Colors.deepOrange;
     }
-    else if(activeDayObject.inTimeRange && !isCurrentDay()){
+    else if(activeDayObject.inTimeRange && !today){
       return Colors.teal;
     }
     
-    else if(isCurrentDay() && !activeDayObject.inTimeRange){
+    else if(today && !activeDayObject.inTimeRange){
       return Colors.pink;
     }
     else{
@@ -57,28 +69,14 @@ class DayGrid extends StatelessWidget{
                 context.read<SelectedDayProvider>().removeSelection();
               },
             ),
-            DayInteractionOverlay(overlayEntry: overlayEntry, day: activeDayObject),
+            DayInteractionOverlay(
+              overlayEntry: overlayEntry, 
+              day: activeDayObject
+            ),
           ],
         );
       },
     );
     overlayState?.insert(overlayEntry);
-  }
-
-  @override
-  build(BuildContext context){
-    return GestureDetector(
-      onTap: () {
-        context.read<SelectedDayProvider>().changeSelection(activeDayObject);
-        if(!isGapDay){
-          _showOverlay(context);
-        }
-      },
-      child: Container(
-        color: chooseColor(context),
-        child: isGapDay ? const Text('') : Text(activeDayObject.day.toString()),
-        // @TODO later add borders, etc StyleStuff
-      ),
-    );
   }
 }

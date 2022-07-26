@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class WeekdayRow extends StatelessWidget{
+  const WeekdayRow({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     List<String> weekdays = [
@@ -17,7 +19,7 @@ class WeekdayRow extends StatelessWidget{
     return GridView.builder(
       physics: const NeverScrollableScrollPhysics(),
       shrinkWrap: true,
-      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisCount: 7,
         childAspectRatio: 1,
       ),

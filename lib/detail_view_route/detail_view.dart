@@ -1,10 +1,14 @@
-import 'package:crimson_harvest/detail_view_route/note_field.dart';
-import 'package:crimson_harvest/providers/selected_day_provider.dart';
-import 'package:provider/provider.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+
+import 'package:crimson_harvest/providers/selected_day_provider.dart';
+
+import 'package:crimson_harvest/detail_view_route/note_field.dart';
 import 'package:crimson_harvest/non_widget/day.dart';
 
 class DetailView extends StatelessWidget{
+  const DetailView({Key? key}) : super(key: key);
+  
   static const String routeWebView = "";
   
   @override
@@ -17,7 +21,7 @@ class DetailView extends StatelessWidget{
         // appbar als festes widget auslagern?
         appBar: AppBar(
           title: Text('${date.day}. ${date.mapMonthName(context)} ${date.year}'),
-          actions: [
+          actions: const [
             IconButton(
               onPressed: null,
               icon: Icon(Icons.menu_outlined),

@@ -3,8 +3,9 @@ import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
 class NoteField extends StatefulWidget{
-  final String activeDayKey;
   const NoteField({Key? key, required this.activeDayKey}) : super(key: key);
+  
+  final String activeDayKey;
 
   @override
   State<NoteField> createState() => _NoteFieldState();
@@ -24,7 +25,7 @@ class _NoteFieldState extends State<NoteField> {
   @override
   void initState() {
     super.initState();
-    textController.addListener(() {print(textController.text);});
+    textController.addListener((){});
     createOpenBox();      //box
   }
 
