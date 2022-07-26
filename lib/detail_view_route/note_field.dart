@@ -45,9 +45,7 @@ class _NoteFieldState extends State<NoteField> {
   void getNotes(){
     if(notesBox.get(widget.activeDayKey) != null){
       textController.text = notesBox.get(widget.activeDayKey);
-      setState(() {
-        
-      });
+      setState(() {});
     }
   }
 

@@ -1,18 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-
+// --------------------------------------------------------------------------------------------
 import 'package:crimson_harvest/providers/selected_day_provider.dart';
 import 'package:crimson_harvest/providers/date_list_provider.dart';
-
 import 'package:crimson_harvest/non_widget/day.dart';
 import 'package:crimson_harvest/calendar_view_route/day_interaction_overlay.dart';
 
-// const vs final vs late: help
 class DayGrid extends StatelessWidget{
+  // ignore: prefer_const_constructors_in_immutables
   DayGrid({Key? key, required this.activeDayObject, required this.isGapDay}) : super(key: key);
   final Day activeDayObject;
   final bool isGapDay;
-  late OverlayEntry overlayEntry;
+  late final OverlayEntry overlayEntry;
 
   @override
   build(BuildContext context){

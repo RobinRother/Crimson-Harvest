@@ -3,7 +3,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:provider/provider.dart';
-
+// --------------------------------------------------------------------------------------------
 import 'package:crimson_harvest/providers/date_list_provider.dart';
 import 'package:crimson_harvest/non_widget/day.dart';
 
@@ -87,23 +87,21 @@ class DayInteractionOverlay extends StatelessWidget {
   }
 
   Future<void> startTimeRange(BuildContext context) async {
-    boxTR.put(day.activeDayKey, "first");
+    boxTR.put(day.key, "first");
     context.read<DateListProvider>().saveTimeRangeStatus();
     overlayEntry.remove();
   }
 
   Future<void> stopTimeRange(BuildContext context) async {
-    if(boxTR.get(day.activeDayKey) == "first"){
+    if(boxTR.get(day.key) == "first"){
       context.read<DateListProvider>().deleteOldLast(day);
-      boxTR.delete(day.activeDayKey);
+      boxTR.delete(day.key);
     }
     else{
-      boxTR.put(day.activeDayKey, "last");
+      boxTR.put(day.key, "last");
       context.read<DateListProvider>().deleteOldLast(day);
     }
     context.read<DateListProvider>().saveTimeRangeStatus();
     overlayEntry.remove();
   }
-
-
 }

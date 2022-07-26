@@ -1,7 +1,8 @@
 import 'package:flutter/foundation.dart';
-import 'package:crimson_harvest/non_widget/day.dart';
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+// --------------------------------------------------------------------------------------------
+import 'package:crimson_harvest/non_widget/day.dart';
 
 class DateListProvider with ChangeNotifier{
   late Box boxTR;
@@ -21,9 +22,11 @@ class DateListProvider with ChangeNotifier{
     boxTR = await Hive.openBox('boxTR');
   }
   
-  bool isCurrentDay(Day activeDayObject){    // function or variable
+  bool isCurrentDay(Day activeDayObject){
     DateTime currentDay = DateTime.now();
-    if(currentDay.year == activeDayObject.year && currentDay.month == activeDayObject.monthNum && currentDay.day == activeDayObject.day){
+    if( currentDay.year == activeDayObject.year && 
+        currentDay.month == activeDayObject.monthNum && 
+        currentDay.day == activeDayObject.day){
       return true;
     }
     return false;
@@ -71,12 +74,12 @@ class DateListProvider with ChangeNotifier{
     String today = DateTime.now().toString();
     int index = 0;
 
-    if(!boxTR.containsKey(day.activeDayKey)){
+    if(!boxTR.containsKey(day.key)){
       return;
     }
 
     // get index for key
-    while(boxTR.keyAt(index) != day.activeDayKey) {
+    while(boxTR.keyAt(index) != day.key) {
       index++;
     }
     index++;
@@ -90,6 +93,7 @@ class DateListProvider with ChangeNotifier{
     }
   }
 
+  // to be planned and improved
   Future<void> saveTimeRangeStatus() async {
     bool timeRangeIsActive = false;
     String role = "";
@@ -98,8 +102,8 @@ class DateListProvider with ChangeNotifier{
     for(int monthCounter = 0; monthCounter < dateList.length; monthCounter++){
       for(int dayCounter = 0; dayCounter < dateList[monthCounter].length; dayCounter++){
         role = "";
-        if(boxTR.get(dateList[monthCounter][dayCounter].activeDayKey) != null){
-          role = boxTR.get(dateList[monthCounter][dayCounter].activeDayKey);
+        if(boxTR.get(dateList[monthCounter][dayCounter].key) != null){
+          role = boxTR.get(dateList[monthCounter][dayCounter].key);
         }
 
         if(isInFuture){

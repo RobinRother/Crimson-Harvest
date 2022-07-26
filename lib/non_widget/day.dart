@@ -4,14 +4,14 @@ class Day {
   int _day = 0;
   late int _monthNum;
   late int _year;
-  String _activeDayKey = '';
+  String _key = '';
   bool _inTimeRange = false;
 
   Day({required date}){
     _day = date.day;
     _monthNum = date.month;
     _year = date.year;
-    _activeDayKey = date.toString();
+    _key = date.toString();
   }
 
   // to create Day with an invalid day value as gap day
@@ -46,7 +46,7 @@ class Day {
 
   int get year => _year;
 
-  String get activeDayKey => _activeDayKey;
+  String get key => _key;
 
   bool get inTimeRange => _inTimeRange;
   set inTimeRange(value) => _inTimeRange = value;

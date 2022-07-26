@@ -1,15 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-
+// --------------------------------------------------------------------------------------------
 import 'package:crimson_harvest/providers/selected_day_provider.dart';
-
 import 'package:crimson_harvest/detail_view_route/note_field.dart';
 import 'package:crimson_harvest/non_widget/day.dart';
 
 class DetailView extends StatelessWidget{
   const DetailView({Key? key}) : super(key: key);
-  
-  static const String routeWebView = "";
   
   @override
   Widget build(BuildContext context) {
@@ -28,7 +25,7 @@ class DetailView extends StatelessWidget{
             ),
           ],
         ),
-        body: NoteField(activeDayKey: date.activeDayKey),
+        body: NoteField(activeDayKey: date.key),
       ),
     );
   }

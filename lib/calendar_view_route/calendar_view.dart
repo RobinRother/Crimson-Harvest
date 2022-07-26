@@ -1,15 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-
+// --------------------------------------------------------------------------------------------
 import 'package:crimson_harvest/providers/current_month_provider.dart';
-
 import 'package:crimson_harvest/calendar_view_route/month_list.dart';
 
 
 class CalendarView extends StatelessWidget {
-  static const String routeWebView = "";
-
   const CalendarView({Key? key}) : super(key: key);
+  
+  static const String routeWebView = "";
   
   @override
   Widget build(BuildContext context) {
@@ -38,7 +37,7 @@ class CalendarView extends StatelessWidget {
           ),
         ],
       ),
-      body: MonthList(),
+      body: const MonthList(),
     );
   }
 }

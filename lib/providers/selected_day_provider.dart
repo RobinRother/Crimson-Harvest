@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import '../non_widget/day.dart';
+// --------------------------------------------------------------------------------------------
+import 'package:crimson_harvest/non_widget/day.dart';
 
 class SelectedDayProvider with ChangeNotifier{
   Day _selectedDay;

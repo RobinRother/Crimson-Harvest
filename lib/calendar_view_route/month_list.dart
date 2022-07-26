@@ -2,9 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter/scheduler.dart';
-
+// --------------------------------------------------------------------------------------------
 import 'package:crimson_harvest/providers/current_month_provider.dart';
-
 import 'package:crimson_harvest/providers/date_list_provider.dart';
 import 'package:crimson_harvest/calendar_view_route/month_grid.dart';
 import 'package:crimson_harvest/calendar_view_route/weekday_row.dart';
@@ -29,7 +28,7 @@ class _MonthListState extends State<MonthList> {
 
     return Column(
       children: [
-        WeekdayRow(),
+        const WeekdayRow(),
         Expanded(
           child: ScrollablePositionedList.builder(
             itemScrollController: _itemScrollController,
