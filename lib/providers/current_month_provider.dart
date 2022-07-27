@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 
+/// Provider containing all variables/ methods necessary to scroll to the current month.
 class CurrentMonthProvider with ChangeNotifier{
   final ItemScrollController _itemScrollController = ItemScrollController(); 
   ItemScrollController get itemScrollControler => _itemScrollController;
@@ -8,15 +9,16 @@ class CurrentMonthProvider with ChangeNotifier{
   DateTime get calendarEnd => _calendarEnd;
 
   // to be moved into config
-  final DateTime _calendarStart = DateTime.utc(2020, 1, 1);
-  final DateTime _calendarEnd = DateTime.utc(2028, 1, 1);
+  final DateTime _calendarStart = DateTime.utc(DateTime.now().year - 5, 1, 1);
+  final DateTime _calendarEnd = DateTime.utc(DateTime.now().year + 5, 1, 1);
   // ===
 
   void scrollToCurrentMonth(){
-    _itemScrollController.jumpTo(index: _calcCurrentMonthIndex());
+    _itemScrollController.jumpTo(index: _calculateCurrentMonthIndex());
   }
 
-  int _calcCurrentMonthIndex(){
+  /// Calculates target index (current month) for scrolling [scrollToCurrentMonth]
+  int _calculateCurrentMonthIndex(){
     DateTime today = DateTime.now();
     int index = 0;
     DateTime dateCounter = _calendarStart;

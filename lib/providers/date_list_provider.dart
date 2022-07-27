@@ -1,17 +1,20 @@
 import 'package:flutter/foundation.dart';
-import 'package:crimson_harvest/non_widget/day.dart';
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+// --------------------------------------------------------------------------------------------
+import 'package:crimson_harvest/non_widget/day.dart';
 
+/// Provider containing all variables/ methods necessary to fill the calendar with up-to-date information
 class DateListProvider with ChangeNotifier{
   late Box boxTR;
   late List dateList;
 
   DateListProvider() {
-    dateList = calcDates();
+    dateList = calculateDates();
     prepData();
   }
 
+  /// Prepares data in correct order with await to avoid initialization problems.
   void prepData() async {
     await openBoxTR();
     await saveTimeRangeStatus();
@@ -21,17 +24,25 @@ class DateListProvider with ChangeNotifier{
     boxTR = await Hive.openBox('boxTR');
   }
   
-  bool isCurrentDay(Day activeDayObject){    // function or variable
+  bool isCurrentDay(Day activeDayObject){
     DateTime currentDay = DateTime.now();
-    if(currentDay.year == activeDayObject.year && currentDay.month == activeDayObject.monthNum && currentDay.day == activeDayObject.day){
+    if( currentDay.year == activeDayObject.year && 
+        currentDay.month == activeDayObject.monthNum && 
+        currentDay.day == activeDayObject.day){
       return true;
     }
     return false;
   }
 
-  List calcDates() {
-    DateTime calendarStart = DateTime.utc(2020, 1, 1);
-    DateTime calendarEnd = DateTime.utc(2028, 1, 1);
+  /// Calculates dates to be filled into the calendar
+  /// 
+  /// dateList format: List[List][Day] (a [List] containing [List]s (the months) containing [Day] objects).
+  List calculateDates() {
+    // to be moved into config
+    final DateTime calendarStart = DateTime.utc(DateTime.now().year - 5, 1, 1);
+    final DateTime calendarEnd = DateTime.utc(DateTime.now().year + 5, 1, 1);
+    // ===
+
     List<List> calculatedDateList = [];
     DateTime dayIterator = calendarStart;
     int monthIndex = 0;
@@ -48,7 +59,7 @@ class DateListProvider with ChangeNotifier{
         //to make month index accessible need to create this
         List<Day> firstElement = [];
 
-        // create list with gap days
+        // creates list with gap days
         while(gap > 0){
           firstElement.add(Day.placeholder(date: dayIterator));
           gap = gap - 1;
@@ -67,16 +78,19 @@ class DateListProvider with ChangeNotifier{
     return calculatedDateList;
   }
 
+  /// Deletes "last" mark in hive box for timeranges
+  /// 
+  /// Necessary when marking another day as "last" -> deletes entry not belonging to the timerange anymore.
   void deleteOldLast(Day day){
     String today = DateTime.now().toString();
     int index = 0;
 
-    if(!boxTR.containsKey(day.activeDayKey)){
+    if(!boxTR.containsKey(day.key)){
       return;
     }
 
-    // get index for key
-    while(boxTR.keyAt(index) != day.activeDayKey) {
+    // gets index for key
+    while(boxTR.keyAt(index) != day.key) {
       index++;
     }
     index++;
@@ -90,54 +104,53 @@ class DateListProvider with ChangeNotifier{
     }
   }
 
+
+  // to be planned and improved
+  /// Sets [Day.inTimeRange] to true when a timerange is created/ deleted/ edited.
+  /// 
+  /// Sets everything inbetween start and end or current day to true.
   Future<void> saveTimeRangeStatus() async {
     bool timeRangeIsActive = false;
     String role = "";
-    bool isInFuture = false;
 
     for(int monthCounter = 0; monthCounter < dateList.length; monthCounter++){
       for(int dayCounter = 0; dayCounter < dateList[monthCounter].length; dayCounter++){
         role = "";
-        if(boxTR.get(dateList[monthCounter][dayCounter].activeDayKey) != null){
-          role = boxTR.get(dateList[monthCounter][dayCounter].activeDayKey);
+        
+        // the active day (day of this iteration) is saved in hive
+        if(boxTR.get(dateList[monthCounter][dayCounter].key) != null){
+          role = boxTR.get(dateList[monthCounter][dayCounter].key);
         }
 
-        if(isInFuture){
-          continue;
+        if(role == "last"){
+          dateList[monthCounter][dayCounter].inTimeRange = true;
+          timeRangeIsActive = false;
         }
-        else{
-          if(role == "last"){
+
+        if((role == "first" || timeRangeIsActive == true) && !isCurrentDay(dateList[monthCounter][dayCounter])){
+          timeRangeIsActive = true;
+          dateList[monthCounter][dayCounter].inTimeRange = true;
+        }
+
+        if(isCurrentDay(dateList[monthCounter][dayCounter])){
+          if(timeRangeIsActive && (role != "last")){
             dateList[monthCounter][dayCounter].inTimeRange = true;
             timeRangeIsActive = false;
           }
-
-          if((role == "first" || timeRangeIsActive == true) && !isCurrentDay(dateList[monthCounter][dayCounter])){
-            timeRangeIsActive = true;
+          else if(!timeRangeIsActive && (role == "last")){
             dateList[monthCounter][dayCounter].inTimeRange = true;
           }
-
-          if(isCurrentDay(dateList[monthCounter][dayCounter])){
-            if(timeRangeIsActive && (role != "last")){
-              dateList[monthCounter][dayCounter].inTimeRange = true;
-              timeRangeIsActive = false;
-            }
-            else if(!timeRangeIsActive && (role == "last")){
-              dateList[monthCounter][dayCounter].inTimeRange = true;
-            }
-            else if(role == "first"){
-              dateList[monthCounter][dayCounter].inTimeRange = true;
-              timeRangeIsActive = false;
-            }
-            else{
-              dateList[monthCounter][dayCounter].inTimeRange = false;
-            }
-
-            isInFuture = true;
+          else if(role == "first"){
+            dateList[monthCounter][dayCounter].inTimeRange = true;
+            timeRangeIsActive = false;
           }
-          
-          if(role == "" && !timeRangeIsActive && !isCurrentDay(dateList[monthCounter][dayCounter])){
+          else{
             dateList[monthCounter][dayCounter].inTimeRange = false;
           }
+        }
+        
+        if(role == "" && !timeRangeIsActive && !isCurrentDay(dateList[monthCounter][dayCounter])){
+          dateList[monthCounter][dayCounter].inTimeRange = false;
         }
       }
     }

@@ -1,27 +1,28 @@
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
+/// Holds day information additional to [DateTime] object.
 class Day {
   int _day = 0;
   late int _monthNum;
   late int _year;
-  String _activeDayKey = '';
+  String _key = '';
   bool _inTimeRange = false;
 
   Day({required date}){
     _day = date.day;
     _monthNum = date.month;
     _year = date.year;
-    _activeDayKey = date.toString();
+    _key = date.toString();
   }
 
-  // to create Day with an invalid day value as gap day
-  // month and year are still accurate to create gridviewheading
+  /// Creates [Day] object with an invalid day value (= 0) for gap days.
   Day.placeholder({required date}){
+  // month and year are still accurate to create gridviewheading
     _monthNum = date.month;
     _year = date.year;
   }
 
-  // map numeric month value to named month
+  /// Maps numeric month value to named month.
   String mapMonthName(context){
     List<String> months = [
       AppLocalizations.of(context)?.january ?? "",
@@ -46,7 +47,7 @@ class Day {
 
   int get year => _year;
 
-  String get activeDayKey => _activeDayKey;
+  String get key => _key;
 
   bool get inTimeRange => _inTimeRange;
   set inTimeRange(value) => _inTimeRange = value;
