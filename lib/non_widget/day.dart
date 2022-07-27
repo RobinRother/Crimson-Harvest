@@ -15,15 +15,14 @@ class Day {
     _key = date.toString();
   }
 
-  /// Creates [Day] object with an invalid day value (= 0)
-  // to create Day with an invalid day value as gap day
-  // month and year are still accurate to create gridviewheading
+  /// Creates [Day] object with an invalid day value (= 0) for gap days.
   Day.placeholder({required date}){
+  // month and year are still accurate to create gridviewheading
     _monthNum = date.month;
     _year = date.year;
   }
 
-  // map numeric month value to named month
+  /// Maps numeric month value to named month.
   String mapMonthName(context){
     List<String> months = [
       AppLocalizations.of(context)?.january ?? "",

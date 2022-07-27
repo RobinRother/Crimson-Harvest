@@ -2,15 +2,17 @@ import 'package:flutter/material.dart';
 // --------------------------------------------------------------------------------------------
 import 'package:crimson_harvest/non_widget/day.dart';
 
+/// Provider containing all variables/ methods necessary to select and deselct days.
 class SelectedDayProvider with ChangeNotifier{
   Day _selectedDay;
-  bool _isSelected = false;   // @TODO how long shall you live? until death? changing pages?
+  bool _isSelected = false;
 
   Day get selectedDay => _selectedDay;
   bool get isSelected => _isSelected;
 
   SelectedDayProvider(this._selectedDay);
 
+  /// Switches [selectedDay] to new valid selection
   void changeSelection(Day newSelection){
     // selecting gap day
     if(newSelection.day == 0){
@@ -24,6 +26,7 @@ class SelectedDayProvider with ChangeNotifier{
     notifyListeners();
   }
 
+  /// Deselects a day
   void removeSelection(){
     _isSelected = false;
     notifyListeners();
