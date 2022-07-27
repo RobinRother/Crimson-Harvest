@@ -9,9 +9,11 @@ class DateListProvider with ChangeNotifier{
   late List dateList;
 
   DateListProvider() {
-    dateList = calcDates();
+    dateList = calculateDates();
     prepData();
   }
+
+
 
   void prepData() async {
     await openBoxTR();
@@ -32,9 +34,11 @@ class DateListProvider with ChangeNotifier{
     return false;
   }
 
-  List calcDates() {
-    DateTime calendarStart = DateTime.utc(2020, 1, 1);
-    DateTime calendarEnd = DateTime.utc(2028, 1, 1);
+  List calculateDates() {
+    final DateTime calendarStart = DateTime.utc(DateTime.now().year - 5, 1, 1);
+    final DateTime calendarEnd = DateTime.utc(DateTime.now().year + 5, 1, 1);
+    // to be moved into config
+    
     List<List> calculatedDateList = [];
     DateTime dayIterator = calendarStart;
     int monthIndex = 0;
@@ -92,6 +96,7 @@ class DateListProvider with ChangeNotifier{
       index++;
     }
   }
+
 
   // to be planned and improved
   Future<void> saveTimeRangeStatus() async {

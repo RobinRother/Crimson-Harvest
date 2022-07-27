@@ -1,5 +1,6 @@
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
+/// Holds day information additional to [DateTime] object.
 class Day {
   int _day = 0;
   late int _monthNum;
@@ -14,6 +15,7 @@ class Day {
     _key = date.toString();
   }
 
+  /// Creates [Day] object with an invalid day value (= 0)
   // to create Day with an invalid day value as gap day
   // month and year are still accurate to create gridviewheading
   Day.placeholder({required date}){

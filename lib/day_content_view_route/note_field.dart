@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
+/// Displays and saves notes of selected day
 class NoteField extends StatefulWidget{
   const NoteField({Key? key, required this.activeDayKey}) : super(key: key);
   
@@ -18,7 +19,7 @@ class _NoteFieldState extends State<NoteField> {
   @override
   void dispose() {
     textController.dispose();
-    notesBox.close();   //box
+    notesBox.close();
     super.dispose();
   }
 
@@ -38,6 +39,7 @@ class _NoteFieldState extends State<NoteField> {
     notesBox.put(widget.activeDayKey, textController.value.text);
   }
 
+  /// Displays saved notes.
   void getNotes(){
     if(notesBox.get(widget.activeDayKey) != null){
       textController.text = notesBox.get(widget.activeDayKey);

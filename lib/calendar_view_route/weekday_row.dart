@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
+/// Displays the weekdays as a header row.
 class WeekdayRow extends StatelessWidget{
   const WeekdayRow({Key? key}) : super(key: key);
 
@@ -17,7 +18,6 @@ class WeekdayRow extends StatelessWidget{
     ];
 
     return Container(
-      //padding: const EdgeInsets.all(16.0),
       padding: const EdgeInsets.fromLTRB(36, 0, 36, 0),
       color: const Color.fromARGB(180, 190, 145, 111),
       child: GridView.builder(

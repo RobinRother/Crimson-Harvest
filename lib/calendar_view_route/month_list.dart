@@ -15,10 +15,12 @@ class MonthList extends StatefulWidget {
   State<MonthList> createState() => _MonthListState();
 }
 
+/// Displays a scrollable list containing the months and the weekdays.
 class _MonthListState extends State<MonthList> {
   @override
   void initState() {
     super.initState();
+    // starts at current month
     SchedulerBinding.instance.addPostFrameCallback((_) => context.read<CurrentMonthProvider>().scrollToCurrentMonth());
   }
 
@@ -37,7 +39,7 @@ class _MonthListState extends State<MonthList> {
               return MonthGrid(
                 // passing months individually
                 dates: context.watch<DateListProvider>().dateList[index],
-                //passing attributes of first day each to create header -- gap day already has correct month/ year
+                //passing attributes of first day each to create header (gap day already has correct month/ year)
                 month: context.watch<DateListProvider>().dateList[index][0].mapMonthName(context),
                 year: context.watch<DateListProvider>().dateList[index][0].year.toString(),
               );

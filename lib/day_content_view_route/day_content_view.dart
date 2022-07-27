@@ -5,6 +5,9 @@ import 'package:crimson_harvest/providers/selected_day_provider.dart';
 import 'package:crimson_harvest/day_content_view_route/note_field.dart';
 import 'package:crimson_harvest/non_widget/day.dart';
 
+/// Builds the screen displaying the notefield
+/// 
+/// Displays content for the selected day
 class DayContentView extends StatelessWidget{
   const DayContentView({Key? key}) : super(key: key);
   

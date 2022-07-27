@@ -14,21 +14,12 @@ import 'package:crimson_harvest/calendar_view_route/calendar_view.dart';
 import 'package:crimson_harvest/day_content_view_route/day_content_view.dart';
 import 'package:crimson_harvest/calendar_view_route/web_view_container.dart';
 
-// TODOS
-// change language in app -> currently read from system -> settings
-// nicer styling (borders, ...)
-// read preferences from file (no hardcoding anymore)
-// update today when day changes?
-// ausgrauen der start box in future
-// hide loading behind splash screen
-// move github link into sidebar
-// add settings to sidebar
-// themes?
 
-// calc to calculate!
-// '' und "" consistent!
-
+  /// Initializes the key components.
+  /// 
+  /// Components: Hive database, provider classes, screen routes, language support [AppLocalizations]
 void main() async {
+
   await Hive.initFlutter();
 
   runApp(
@@ -56,4 +47,3 @@ void main() async {
     )
   );
 }
-

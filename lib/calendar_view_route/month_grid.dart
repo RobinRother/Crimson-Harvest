@@ -2,9 +2,12 @@ import 'package:flutter/material.dart';
 // --------------------------------------------------------------------------------------------
 import 'package:crimson_harvest/calendar_view_route/day_grid.dart';
 
+/// Displays the month with a heading.
+/// 
+/// Gap day is a day belonging to the previous month which makes a "gap" at the beginning of the current month.
 class MonthGrid extends StatelessWidget {
   const MonthGrid({Key? key, required this.dates, required this.month, required this.year}) : super(key: key);
-  final List dates;
+  final List dates;       // contains list with each day from the corresponding month
   final String month;
   final String year;
 
@@ -33,7 +36,7 @@ class MonthGrid extends StatelessWidget {
           child: GridView.builder(
             physics: const NeverScrollableScrollPhysics(),
             shrinkWrap: true,
-            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(    // read from settings?
+            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
               crossAxisCount: 7,
               childAspectRatio: 0.8,
               crossAxisSpacing: 8.0,

@@ -4,11 +4,13 @@ import 'package:provider/provider.dart';
 import 'package:crimson_harvest/providers/current_month_provider.dart';
 import 'package:crimson_harvest/calendar_view_route/month_list.dart';
 
-
+/// Builds the screen displaying the appbar and the calendar.
+/// 
+/// The appbar contains links to the current month and the github repo each.
 class CalendarView extends StatelessWidget {
   const CalendarView({Key? key}) : super(key: key);
   
-  static const String routeWebView = "";
+  static const String routeWebView = "/web_view";
   
   @override
   Widget build(BuildContext context) {
@@ -16,7 +18,7 @@ class CalendarView extends StatelessWidget {
       backgroundColor: Colors.lime.shade200,
       appBar: AppBar(
         backgroundColor: const Color.fromARGB(255, 160, 120, 90),
-        title: const Text('Crimson Harvest'),     // auslagern in config file?
+        title: const Text('Crimson Harvest'),
         actions: [
           IconButton(
             onPressed: () => context.read<CurrentMonthProvider>().scrollToCurrentMonth(),
