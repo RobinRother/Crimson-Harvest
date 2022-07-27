@@ -71,11 +71,10 @@ class DayGrid extends StatelessWidget{
     }
   }
 
-  void _showOverlay(BuildContext context){
     /// Displays overlay buttons
     /// 
     /// Displays buttons (start/ end, edit notes) when selecting a day.
-
+  void _showOverlay(BuildContext context){
     OverlayState? overlayState = Overlay.of(context);
     overlayEntry = OverlayEntry(
       builder: (context) {
