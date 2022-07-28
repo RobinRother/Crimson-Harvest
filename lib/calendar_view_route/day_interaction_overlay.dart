@@ -23,7 +23,7 @@ class DayInteractionOverlay extends StatelessWidget {
     Size screen = _fetchScreenSize(context);
     Size buttonSize = _calculateButtonSize(screen);
     Offset buttonPosition = _calculateButtonPosition(screen, buttonSize);
-    bool inFuture = DateTime.utc(day.year, day.monthNum, day.day).isAfter(DateTime.now());
+    bool inFuture = context.read<DateListProvider>().isInFuture(day);
 
     return Positioned(
       left: buttonPosition.dx,

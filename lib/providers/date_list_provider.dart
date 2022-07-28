@@ -105,16 +105,23 @@ class DateListProvider with ChangeNotifier{
   }
 
 
-  // to be planned and improved
+  bool isInFuture(day){
+    return DateTime.utc(day.year, day.monthNum, day.day).isAfter(DateTime.now());
+  }
+
   /// Sets [Day.inTimeRange] to true when a timerange is created/ deleted/ edited.
   /// 
-  /// Sets everything inbetween start and end or current day to true.
+  /// Sets everything between start and end or current day to true.
   Future<void> saveTimeRangeStatus() async {
     bool timeRangeIsActive = false;
     String role = "";
 
     for(int monthCounter = 0; monthCounter < dateList.length; monthCounter++){
       for(int dayCounter = 0; dayCounter < dateList[monthCounter].length; dayCounter++){
+        if(isInFuture(dateList[monthCounter][dayCounter])){
+          notifyListeners();
+          return;
+        }
         role = "";
         
         // the active day (day of this iteration) is saved in hive
@@ -127,29 +134,12 @@ class DateListProvider with ChangeNotifier{
           timeRangeIsActive = false;
         }
 
-        if((role == "first" || timeRangeIsActive == true) && !isCurrentDay(dateList[monthCounter][dayCounter])){
+        if(role == "first" || timeRangeIsActive == true){
           timeRangeIsActive = true;
           dateList[monthCounter][dayCounter].inTimeRange = true;
         }
-
-        if(isCurrentDay(dateList[monthCounter][dayCounter])){
-          if(timeRangeIsActive && (role != "last")){
-            dateList[monthCounter][dayCounter].inTimeRange = true;
-            timeRangeIsActive = false;
-          }
-          else if(!timeRangeIsActive && (role == "last")){
-            dateList[monthCounter][dayCounter].inTimeRange = true;
-          }
-          else if(role == "first"){
-            dateList[monthCounter][dayCounter].inTimeRange = true;
-            timeRangeIsActive = false;
-          }
-          else{
-            dateList[monthCounter][dayCounter].inTimeRange = false;
-          }
-        }
         
-        if(role == "" && !timeRangeIsActive && !isCurrentDay(dateList[monthCounter][dayCounter])){
+        if(role == "" && !timeRangeIsActive){
           dateList[monthCounter][dayCounter].inTimeRange = false;
         }
       }
