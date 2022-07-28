@@ -12,7 +12,7 @@ import 'package:crimson_harvest/non_widget/day.dart';
 import 'package:crimson_harvest/calendar_view_route/day_interaction_overlay.dart';
 import 'package:crimson_harvest/calendar_view_route/calendar_view.dart';
 import 'package:crimson_harvest/day_content_view_route/day_content_view.dart';
-import 'package:crimson_harvest/calendar_view_route/web_view_container.dart';
+import 'package:crimson_harvest/web_view_container.dart';
 
 
   /// Initializes the key components.
