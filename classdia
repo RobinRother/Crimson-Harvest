@@ -1,0 +1,169 @@
+@startuml
+set namespaceSeparator ::
+
+class "crimson_harvest::calendar_view_route::calendar_view.dart::CalendarView" {
+  {static} +String routeWebView
+  +Widget build()
+}
+
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "crimson_harvest::calendar_view_route::calendar_view.dart::CalendarView"
+
+class "crimson_harvest::calendar_view_route::day_grid.dart::DayGrid" {
+  +Day activeDayObject
+  +bool isGapDay
+  +OverlayEntry overlayEntry
+  +Widget build()
+  +Color chooseBorderColor()
+  +Color chooseColor()
+  -void _showOverlay()
+}
+
+"crimson_harvest::calendar_view_route::day_grid.dart::DayGrid" o-- "crimson_harvest::non_widget::day.dart::Day"
+"crimson_harvest::calendar_view_route::day_grid.dart::DayGrid" o-- "flutter::src::widgets::overlay.dart::OverlayEntry"
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "crimson_harvest::calendar_view_route::day_grid.dart::DayGrid"
+
+class "crimson_harvest::calendar_view_route::day_interaction_overlay.dart::DayInteractionOverlay" {
+  {static} +String routeDayContentView
+  +OverlayEntry overlayEntry
+  +Box<dynamic> boxTR
+  +Day day
+  +Widget build()
+  -Size _fetchScreenSize()
+  -Size _calculateButtonSize()
+  -Offset _calculateButtonPosition()
+  -String _getTimeRangeButtonValue()
+  +void openBoxTR()
+  +Future<void> startTimeRange()
+  +Future<void> stopTimeRange()
+}
+
+"crimson_harvest::calendar_view_route::day_interaction_overlay.dart::DayInteractionOverlay" o-- "flutter::src::widgets::overlay.dart::OverlayEntry"
+"crimson_harvest::calendar_view_route::day_interaction_overlay.dart::DayInteractionOverlay" o-- "hive::hive.dart::Box<dynamic>"
+"crimson_harvest::calendar_view_route::day_interaction_overlay.dart::DayInteractionOverlay" o-- "crimson_harvest::non_widget::day.dart::Day"
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "crimson_harvest::calendar_view_route::day_interaction_overlay.dart::DayInteractionOverlay"
+
+class "crimson_harvest::calendar_view_route::month_grid.dart::MonthGrid" {
+  +List<dynamic> dates
+  +String month
+  +String year
+  +Widget build()
+  -bool _isGapDay()
+}
+
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "crimson_harvest::calendar_view_route::month_grid.dart::MonthGrid"
+
+class "crimson_harvest::calendar_view_route::month_list.dart::MonthList" {
+  +State<MonthList> createState()
+}
+
+"flutter::src::widgets::framework.dart::StatefulWidget" <|-- "crimson_harvest::calendar_view_route::month_list.dart::MonthList"
+
+class "crimson_harvest::calendar_view_route::month_list.dart::_MonthListState" {
+  +void initState()
+  +Widget build()
+}
+
+"flutter::src::widgets::framework.dart::State" <|-- "crimson_harvest::calendar_view_route::month_list.dart::_MonthListState"
+
+class "crimson_harvest::calendar_view_route::weekday_row.dart::WeekdayRow" {
+  +Widget build()
+}
+
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "crimson_harvest::calendar_view_route::weekday_row.dart::WeekdayRow"
+
+class "crimson_harvest::day_content_view_route::day_content_view.dart::DayContentView" {
+  +Widget build()
+}
+
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "crimson_harvest::day_content_view_route::day_content_view.dart::DayContentView"
+
+class "crimson_harvest::day_content_view_route::note_field.dart::NoteField" {
+  +String activeDayKey
+  +State<NoteField> createState()
+}
+
+"flutter::src::widgets::framework.dart::StatefulWidget" <|-- "crimson_harvest::day_content_view_route::note_field.dart::NoteField"
+
+class "crimson_harvest::day_content_view_route::note_field.dart::_NoteFieldState" {
+  +TextEditingController textController
+  +Box<dynamic> notesBox
+  +void dispose()
+  +void initState()
+  +void createOpenBox()
+  +void saveNotes()
+  +void getNotes()
+  +Widget build()
+}
+
+"crimson_harvest::day_content_view_route::note_field.dart::_NoteFieldState" o-- "flutter::src::widgets::editable_text.dart::TextEditingController"
+"crimson_harvest::day_content_view_route::note_field.dart::_NoteFieldState" o-- "hive::hive.dart::Box<dynamic>"
+"flutter::src::widgets::framework.dart::State" <|-- "crimson_harvest::day_content_view_route::note_field.dart::_NoteFieldState"
+
+class "crimson_harvest::l10n::l10n.dart::L10n" {
+  {static} +List<Locale> all
+}
+
+class "crimson_harvest::non_widget::day.dart::Day" {
+  -int _day
+  -int _monthNum
+  -int _year
+  -String _key
+  -bool _inTimeRange
+  +int day
+  +int monthNum
+  +int year
+  +String key
+  +bool inTimeRange
+  +String mapMonthName()
+}
+
+class "crimson_harvest::providers::current_month_provider.dart::CurrentMonthProvider" {
+  -ItemScrollController _itemScrollController
+  -DateTime _calendarStart
+  -DateTime _calendarEnd
+  +ItemScrollController itemScrollControler
+  +DateTime calendarStart
+  +DateTime calendarEnd
+  +void scrollToCurrentMonth()
+  -int _calculateCurrentMonthIndex()
+  -Duration _monthToDuration()
+}
+
+"crimson_harvest::providers::current_month_provider.dart::CurrentMonthProvider" o-- "scrollable_positioned_list::src::scrollable_positioned_list.dart::ItemScrollController"
+"flutter::src::foundation::change_notifier.dart::ChangeNotifier" <|-- "crimson_harvest::providers::current_month_provider.dart::CurrentMonthProvider"
+
+class "crimson_harvest::providers::date_list_provider.dart::DateListProvider" {
+  +Box<dynamic> boxTR
+  +List<dynamic> dateList
+  +void prepData()
+  +Future<void> openBoxTR()
+  +bool isCurrentDay()
+  +List<dynamic> calculateDates()
+  +void deleteOldLast()
+  +bool isInFuture()
+  +Future<void> saveTimeRangeStatus()
+}
+
+"crimson_harvest::providers::date_list_provider.dart::DateListProvider" o-- "hive::hive.dart::Box<dynamic>"
+"flutter::src::foundation::change_notifier.dart::ChangeNotifier" <|-- "crimson_harvest::providers::date_list_provider.dart::DateListProvider"
+
+class "crimson_harvest::providers::selected_day_provider.dart::SelectedDayProvider" {
+  -Day _selectedDay
+  -bool _isSelected
+  +Day selectedDay
+  +bool isSelected
+  +void changeSelection()
+  +void removeSelection()
+}
+
+"crimson_harvest::providers::selected_day_provider.dart::SelectedDayProvider" o-- "crimson_harvest::non_widget::day.dart::Day"
+"flutter::src::foundation::change_notifier.dart::ChangeNotifier" <|-- "crimson_harvest::providers::selected_day_provider.dart::SelectedDayProvider"
+
+class "crimson_harvest::web_view_container.dart::WebViewContainer" {
+  +Widget build()
+}
+
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "crimson_harvest::web_view_container.dart::WebViewContainer"
+
+
+@enduml

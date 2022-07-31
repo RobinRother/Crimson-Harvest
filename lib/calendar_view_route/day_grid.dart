@@ -49,6 +49,7 @@ class DayGrid extends StatelessWidget{
     if(today){
       return Colors.redAccent;
     }
+    // to return border in color of container -> no visible border
     return chooseColor(context);
   }
 
